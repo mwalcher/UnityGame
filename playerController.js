@@ -1,8 +1,8 @@
 ﻿#pragma strict
 
-public var speed : float;
-public var flyHeight : float;
-public var gravity : float;
+private var speed : float = 3;
+private var flyHeight : float = 3;
+private var gravity : float = 8;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
