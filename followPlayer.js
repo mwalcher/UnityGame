@@ -3,7 +3,7 @@
 private var target : GameObject;
 
 function Start(){
-	target = GameObject.Find("Succubus");
+	target = GameObject.Find("Player");
 }
 
 function Update(){
