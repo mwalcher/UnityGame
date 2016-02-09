@@ -1,5 +1,17 @@
 ﻿#pragma strict
 
+import System.Collections.Generic;
+
+private var health : float = 100;
+private var lives : float = 3;
+private var gems : float = 0;
+
+private var inventory = new Dictionary.<String,boolean>();
+inventory["shield"] = false;
+inventory["hourglass"] = false;
+inventory["bomb"] = false;
+inventory["potion"] = false;
+
 private var speed : float = 3;
 private var flyHeight : float = 3;
 private var gravity : float = 8;
