@@ -6,6 +6,12 @@ private var health : float = 100;
 private var lives : float = 3;
 private var gems : float = 0;
 
+
+//Shield Bubble Variables
+//var playerHolder : GameObject = GameObject.Find("Player");
+//var shieldBubble : String = "shieldBubble";
+//private var ShieldActive : boolean;
+
 private var inventory = new Dictionary.<String,boolean>();
 inventory["shield"] = false;
 inventory["hourglass"] = false;
@@ -35,3 +41,82 @@ function FixedUpdate(){
 	}
 
 }
+
+function OnTriggerEnter(other:Collider)
+{
+	//Health Pickup
+	if(other.tag == "health" && health < 100)
+	{
+		health++;
+		Debug.Log("health was picked up");
+		Destroy(other.gameObject);
+	}
+
+	if(other.tag == "health" && health == 100)
+	{
+		Destroy(other.gameObject);
+		Debug.Log("You Health was 100, object was destroy");
+	}
+
+	//Gems Pickup
+	if(other.tag == "gems")
+	{
+		gems+=1;
+	    //inventory["gems"] +=1;
+		Destroy(other.gameObject);
+		Debug.Log("Gem was collected");
+
+		/*for(var invItem : String in inventory.gems)
+		{
+			print(invItem + " " + inventory[invItem]);
+		}
+		*/
+	}
+
+	//Sheild Pickup
+	if(other.tag == "shield")
+	{
+		//if(ShieldActive == false)
+		//{
+			//shieldProtect();
+			Destroy(other.gameObject);
+			Debug.Log("shield was picked up");
+		//}
+
+		//else if(ShieldActive == true)
+		//{
+			//Destroy(other.gameObject);
+		//}
+
+	}
+
+	//Bomb Pickup
+	if(other.tag == "bomb")
+	{
+		Destroy(other.gameObject);
+		Debug.Log("Bomb was picked up");
+	}
+
+	//Potion Pickup
+
+	if(other.tag == "potion")
+	{
+		Destroy(other.gameObject);
+		Debug.Log("Potion was picked up");
+		//GetComponent.<Renderer>().material.color.a = 0.5;
+	}
+
+	if(other.tag == "hourglass")
+	{
+		Destroy(other.gameObject);
+		Debug.Log("Hourglass has been picked up");
+	}
+
+}
+
+/*function shieldProtect()
+{
+	var player : GameObject = Instantiate(Resources.Load(shieldBubble)) as GameObject;
+	player.transform.parent = playerHolder.transform;
+	player.transform.localPosition = new Vector3(0,0,0);
+}*/
