@@ -59,7 +59,7 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "gems"){
 		gems++;
 		Destroy(other.gameObject);
-		Debug.Log("Gem was collected");
+		Debug.Log("Gem was collected, current gems = " + gems);
 	}
 
 	//Sheild Pickup
