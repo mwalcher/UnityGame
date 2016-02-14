@@ -49,7 +49,7 @@ function OnTriggerEnter(other:Collider){
 		health++;
 		Debug.Log("health was picked up");
 		Destroy(other.gameObject);
-	}else{
+	}else if(other.tag == "health" && health >= 100){
 		health = 100;
 		Debug.Log("You Health was 100, object was destroy");
 		Destroy(other.gameObject);
