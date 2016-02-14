@@ -42,40 +42,28 @@ function FixedUpdate(){
 
 }
 
-function OnTriggerEnter(other:Collider)
-{
+function OnTriggerEnter(other:Collider){
+
 	//Health Pickup
-	if(other.tag == "health" && health < 100)
-	{
+	if(other.tag == "health" && health < 100){
 		health++;
 		Debug.Log("health was picked up");
 		Destroy(other.gameObject);
-	}
-
-	if(other.tag == "health" && health == 100)
-	{
-		Destroy(other.gameObject);
+	}else{
+		health = 100;
 		Debug.Log("You Health was 100, object was destroy");
+		Destroy(other.gameObject);
 	}
 
 	//Gems Pickup
-	if(other.tag == "gems")
-	{
-		gems+=1;
-	    //inventory["gems"] +=1;
+	if(other.tag == "gems"){
+		gems++;
 		Destroy(other.gameObject);
 		Debug.Log("Gem was collected");
-
-		/*for(var invItem : String in inventory.gems)
-		{
-			print(invItem + " " + inventory[invItem]);
-		}
-		*/
 	}
 
 	//Sheild Pickup
-	if(other.tag == "shield")
-	{
+	if(other.tag == "shield"){
 		//if(ShieldActive == false)
 		//{
 			//shieldProtect();
@@ -87,27 +75,23 @@ function OnTriggerEnter(other:Collider)
 		//{
 			//Destroy(other.gameObject);
 		//}
-
 	}
 
 	//Bomb Pickup
-	if(other.tag == "bomb")
-	{
+	if(other.tag == "bomb"){
 		Destroy(other.gameObject);
 		Debug.Log("Bomb was picked up");
 	}
 
 	//Potion Pickup
-
-	if(other.tag == "potion")
-	{
+	if(other.tag == "potion"){
 		Destroy(other.gameObject);
 		Debug.Log("Potion was picked up");
 		//GetComponent.<Renderer>().material.color.a = 0.5;
 	}
 
-	if(other.tag == "hourglass")
-	{
+	//Hourglass Pickup
+	if(other.tag == "hourglass"){
 		Destroy(other.gameObject);
 		Debug.Log("Hourglass has been picked up");
 	}
