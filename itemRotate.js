@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-public var rotate : float = 5.0;
+private var rotate : float = 50;
 
 function Update ()
 {
