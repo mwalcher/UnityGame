@@ -2,15 +2,15 @@
 
 import System.Collections.Generic;
 
-private var health : float = 100;
-private var lives : float = 3;
-private var gems : float = 0;
+//private var health : float = 100;
+//private var lives : float = 3;
+//private var gems : float = 0;
 
-private var inventory = new Dictionary.<String,boolean>();
-inventory["shield"] = false;
-inventory["hourglass"] = false;
-inventory["bomb"] = false;
-inventory["potion"] = false;
+//private var inventory = new Dictionary.<String,boolean>();
+//inventory["shield"] = false;
+//inventory["hourglass"] = false;
+//inventory["bomb"] = false;
+//inventory["potion"] = false;
 
 private var speed : float = 3;
 private var flyHeight : float = 3;
@@ -18,6 +18,13 @@ private var gravity : float = 8;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
+
+private var playerStatus : playerStatusScript;
+
+function Start() {
+
+    playerStatus = GetComponent(playerStatusScript);
+}
 
 function FixedUpdate(){
 	// Locked Z Position
@@ -34,4 +41,11 @@ function FixedUpdate(){
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
 
+	//playerStatus.takeDamage(1f);
+	//playerStatus.pickUpGem();
+    // on collision with potion obj
+	playerStatus.addToInventory("bomb");
 }
+
+// onCollision
+// and in onCollision, call the appropriate method in the playerStatusScript
