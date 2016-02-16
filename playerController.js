@@ -27,8 +27,7 @@ GetComponent.<Rigidbody>().useGravity = false;
 private var playerStatus : playerStatusScript;
 
 function Start() {
-
-    playerStatus = GetComponent(playerStatusScript);
+    playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
 }
 
 function FixedUpdate(){
@@ -50,30 +49,28 @@ function FixedUpdate(){
 function OnTriggerEnter(other:Collider){
 
 	//Health Pickup
-	if(other.tag == "health" && health < 100){
-		health++;
+	if(other.tag == "health"){
+		playerStatus.fullHealth();
 		Debug.Log("health was picked up");
-		Destroy(other.gameObject);
-	}else if(other.tag == "health" && health >= 100){
-		health = 100;
-		Debug.Log("You Health was 100, object was destroy");
 		Destroy(other.gameObject);
 	}
 
 	//Gems Pickup
 	if(other.tag == "gems"){
-		gems++;
+		playerStatus.pickUpGem();
 		Destroy(other.gameObject);
 		Debug.Log("Gem was collected, current gems = " + gems);
 	}
 
 	//Sheild Pickup
 	if(other.tag == "shield"){
+		playerStatus.addToInventory("shield");
+		Destroy(other.gameObject);
+		Debug.Log("shield was picked up");
+
 		//if(ShieldActive == false)
 		//{
 			//shieldProtect();
-			Destroy(other.gameObject);
-			Debug.Log("shield was picked up");
 		//}
 
 		//else if(ShieldActive == true)
@@ -84,12 +81,14 @@ function OnTriggerEnter(other:Collider){
 
 	//Bomb Pickup
 	if(other.tag == "bomb"){
+		playerStatus.addToInventory("bomb");
 		Destroy(other.gameObject);
 		Debug.Log("Bomb was picked up");
 	}
 
 	//Potion Pickup
 	if(other.tag == "potion"){
+		playerStatus.addToInventory("potion");
 		Destroy(other.gameObject);
 		Debug.Log("Potion was picked up");
 		//GetComponent.<Renderer>().material.color.a = 0.5;
@@ -97,6 +96,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Hourglass Pickup
 	if(other.tag == "hourglass"){
+		playerStatus.addToInventory("hourglass");
 		Destroy(other.gameObject);
 		Debug.Log("Hourglass has been picked up");
 	}

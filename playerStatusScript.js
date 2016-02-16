@@ -11,6 +11,7 @@ public var heartImage1 : UnityEngine.UI.RawImage;
 public var heartImage2 : UnityEngine.UI.RawImage;
 public var heartImage3 : UnityEngine.UI.RawImage;
 
+public var healthText : UnityEngine.UI.Text;
 public var livesText : UnityEngine.UI.Text;
 
 // powerup images and texture references
@@ -26,6 +27,7 @@ public var hourglassTexture : UnityEngine.Texture;
 private var numberOfLives : int = 3;
 private var numberOfGems : int = 0;
 private var totalNumberOfGems : int = 50;
+private var totalHealth : int = 100;
 
 private var inventory = new Dictionary.<String,boolean>();
 
@@ -44,6 +46,8 @@ function Start () {
     inventory["potion"] = false;
 
     powerUpContainer.color = emptyPowerUp;
+    mySlider.value = 70;
+    healthText.text = mySlider.value + " / " + totalHealth;
 }
 
 
@@ -55,18 +59,22 @@ function Start () {
 public function addToInventory(object : String) {
     powerUpContainer.color = fullPowerUp;
 
-    if(object =="potion") {
+    if(object == "potion") {
         powerUpImage.texture = potionTexture;
+        powerUpImage.color = fullPowerUp;
     }
 
     else if(object == "bomb") {
-        powerUpImage.texture = bombTexture; 
+        powerUpImage.texture = bombTexture;
+        powerUpImage.color = fullPowerUp;
     }
     else if(object == "shield") {
-        powerUpImage.texture = shieldTexture; 
+        powerUpImage.texture = shieldTexture;
+        powerUpImage.color = fullPowerUp;
     }
     else if(object == "hourglass") {
-        powerUpImage.texture = hourglassTexture; 
+        powerUpImage.texture = hourglassTexture;
+        powerUpImage.color = fullPowerUp;
     }
         
     // set inventory object to true
@@ -86,13 +94,24 @@ public function addToInventory(object : String) {
     }
 
     // update GUI text
-    livesText.text = numberOfGems + "/" + totalNumberOfGems;
+    livesText.text = numberOfGems + " / " + totalNumberOfGems;
+}
+
+// decrease the slider value by the damage amount passed in, if slider value is zero, remove a life
+public function fullHealth() {
+
+    mySlider.value = 100;
+
+    healthText.text = mySlider.value + " / " + totalHealth;
+
 }
 
 // decrease the slider value by the damage amount passed in, if slider value is zero, remove a life
 public function takeDamage(damage : float) {
 
     mySlider.value = mySlider.value - damage;
+
+    healthText.text = mySlider.value + " / " + totalHealth;
 
     if(mySlider.value <= 0) {       
         removeLife();
