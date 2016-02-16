@@ -13,9 +13,9 @@ inventory["bomb"] = false;
 inventory["potion"] = false;
 
 //Shield Bubble Variables
-//var playerHolder : GameObject = GameObject.Find("Player");
-//var shieldBubble : String = "shieldBubble";
-//private var ShieldActive : boolean;
+var ShieldActive : boolean;
+var playerHolder : GameObject;
+playerHolder = GameObject.Find("Player");
 
 private var speed : float = 3;
 private var flyHeight : float = 3;
@@ -46,51 +46,53 @@ function FixedUpdate(){
 	}
 }
 
+function shieldProtect(){
+	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
+	player.transform.parent = playerHolder.transform;
+	player.transform.localPosition = new Vector3(0,1,0);
+}
+
 function OnTriggerEnter(other:Collider){
 
 	//Health Pickup
 	if(other.tag == "health"){
 		playerStatus.fullHealth();
-		Debug.Log("health was picked up");
 		Destroy(other.gameObject);
+		//Debug.Log("health was picked up");
 	}
 
 	//Gems Pickup
 	if(other.tag == "gems"){
 		playerStatus.pickUpGem();
 		Destroy(other.gameObject);
-		Debug.Log("Gem was collected, current gems = " + gems);
+		//Debug.Log("Gem was collected, current gems = " + gems);
 	}
 
 	//Sheild Pickup
 	if(other.tag == "shield"){
 		playerStatus.addToInventory("shield");
-		Destroy(other.gameObject);
-		Debug.Log("shield was picked up");
+		//Debug.Log("shield was picked up");
 
-		//if(ShieldActive == false)
-		//{
-			//shieldProtect();
-		//}
-
-		//else if(ShieldActive == true)
-		//{
-			//Destroy(other.gameObject);
-		//}
+		if(ShieldActive == false){
+			shieldProtect();
+			Destroy(other.gameObject);
+		}else{
+			Destroy(other.gameObject);
+		}
 	}
 
 	//Bomb Pickup
 	if(other.tag == "bomb"){
 		playerStatus.addToInventory("bomb");
 		Destroy(other.gameObject);
-		Debug.Log("Bomb was picked up");
+		//Debug.Log("Bomb was picked up");
 	}
 
 	//Potion Pickup
 	if(other.tag == "potion"){
 		playerStatus.addToInventory("potion");
 		Destroy(other.gameObject);
-		Debug.Log("Potion was picked up");
+		//Debug.Log("Potion was picked up");
 		//GetComponent.<Renderer>().material.color.a = 0.5;
 	}
 
@@ -98,14 +100,7 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "hourglass"){
 		playerStatus.addToInventory("hourglass");
 		Destroy(other.gameObject);
-		Debug.Log("Hourglass has been picked up");
+		//Debug.Log("Hourglass has been picked up");
 	}
 
 }
-
-/*function shieldProtect()
-{
-	var player : GameObject = Instantiate(Resources.Load(shieldBubble)) as GameObject;
-	player.transform.parent = playerHolder.transform;
-	player.transform.localPosition = new Vector3(0,0,0);
-}*/
