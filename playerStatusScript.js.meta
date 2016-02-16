@@ -1,10 +1,21 @@
 fileFormatVersion: 2
 guid: 07d48c087a24f554cbce069bedfd5243
-timeCreated: 1455468482
+timeCreated: 1455581453
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mySlider: {instanceID: 0}
+  - heartImage1: {instanceID: 0}
+  - heartImage2: {instanceID: 0}
+  - heartImage3: {instanceID: 0}
+  - livesText: {instanceID: 0}
+  - powerUpContainer: {instanceID: 0}
+  - powerUpImage: {instanceID: 0}
+  - potionTexture: {fileID: 2800000, guid: b03c16744e5903e41b3f7e0160d0a5d5, type: 3}
+  - bombTexture: {fileID: 2800000, guid: ca36ff0cc19a4094c8008620e23b6f69, type: 3}
+  - shieldTexture: {fileID: 2800000, guid: 6486aec86b4896144896194ed12be8cb, type: 3}
+  - hourglassTexture: {fileID: 2800000, guid: c5d06a34f82b6e04ebf99a27a6b5f649, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

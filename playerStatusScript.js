@@ -22,9 +22,9 @@ public var shieldTexture : UnityEngine.Texture;
 public var hourglassTexture : UnityEngine.Texture;
 
 // inventory references
-public var numberOfLives : int = 2;
-public var numberOfGems : int = 0;
-public var totalNumberOfGems : int = 50;
+private var numberOfLives : int = 3;
+private var numberOfGems : int = 0;
+private var totalNumberOfGems : int = 50;
 
 private var inventory = new Dictionary.<String,boolean>();
 
