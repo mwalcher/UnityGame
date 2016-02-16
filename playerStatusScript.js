@@ -4,6 +4,7 @@ import UnityEngine.UI;
 
 // health slider
 public var mySlider : UnityEngine.UI.Slider;
+public var gemSlider : UnityEngine.UI.Slider;
 
 // lives images
 public var heartImage1 : UnityEngine.UI.RawImage;
@@ -74,11 +75,13 @@ public function addToInventory(object : String) {
 }
 
 //increase gems by one, if at 50 add a life
-public function pickUpGem() {
-    numberOfGems++;
+    public function pickUpGem() {
+        numberOfGems++;
+        gemSlider.value++;
     
     if(numberOfGems == 50) {
         numberOfGems = 0;
+        gemSlider.value = 0;
         addLife();
     }
 
@@ -95,6 +98,7 @@ public function takeDamage(damage : float) {
         removeLife();
     }
 }
+
     // increase number of lives by one
     // change the colour of the heart image on the GUI based on number of lives
 private function addLife() {
