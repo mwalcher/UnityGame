@@ -2,21 +2,6 @@
 
 import System.Collections.Generic;
 
-private var health : float = 100;
-private var lives : float = 3;
-private var gems : float = 0;
-
-private var inventory = new Dictionary.<String,boolean>();
-inventory["shield"] = false;
-inventory["hourglass"] = false;
-inventory["bomb"] = false;
-inventory["potion"] = false;
-
-//Shield Bubble Variables
-var ShieldActive : boolean;
-var playerHolder : GameObject;
-playerHolder = GameObject.Find("Player");
-
 private var speed : float = 3;
 private var flyHeight : float = 3;
 private var gravity : float = 8;
@@ -25,6 +10,7 @@ private var gravity : float = 8;
 GetComponent.<Rigidbody>().useGravity = false;
 
 private var playerStatus : playerStatusScript;
+
 
 function Start() {
     playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
@@ -46,12 +32,6 @@ function FixedUpdate(){
 	}
 }
 
-function shieldProtect(){
-	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
-	player.transform.parent = playerHolder.transform;
-	player.transform.localPosition = new Vector3(0,1,0);
-}
-
 function OnTriggerEnter(other:Collider){
 
 	//Health Pickup
@@ -71,14 +51,8 @@ function OnTriggerEnter(other:Collider){
 	//Sheild Pickup
 	if(other.tag == "shield"){
 		playerStatus.addToInventory("shield");
+		Destroy(other.gameObject);
 		//Debug.Log("shield was picked up");
-
-		if(ShieldActive == false){
-			shieldProtect();
-			Destroy(other.gameObject);
-		}else{
-			Destroy(other.gameObject);
-		}
 	}
 
 	//Bomb Pickup
