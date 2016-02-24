@@ -77,4 +77,18 @@ function OnTriggerEnter(other:Collider){
 		//Debug.Log("Hourglass has been picked up");
 	}
 
+	//Flying Enemies
+	if(other.tag == "flyEnemy"){
+		playerStatus.takeDamage(20);
+		Destroy(other.gameObject);
+		Debug.Log("Player took Damage");
+	}
+
+	//Ground Enemies
+	if(other.tag == "grdEnemy"){
+		playerStatus.takeDamage(30);
+		Destroy(other.gameObject);
+		Debug.Log("Player took Damage");
+	}
+
 }
