@@ -77,6 +77,12 @@ function OnTriggerEnter(other:Collider){
 		//Debug.Log("Hourglass has been picked up");
 	}
 
+	//Terrain Collider
+	if(other.tag == "terrain"){
+		playerStatus.takeDamage(10);
+		Debug.Log("Player took Damage");
+	}
+
 	//Flying Enemies
 	if(other.tag == "flyEnemy"){
 		playerStatus.takeDamage(20);

@@ -192,7 +192,7 @@ private function removeLife() {
     }
 
     numberOfLives--;
-    mySlider.value = 100;
+    fullHealth();
 }
 
 public function gameOver() {
