@@ -44,6 +44,15 @@ var ShieldActive : boolean;
 var playerHolder : GameObject;
 playerHolder = GameObject.Find("Player");
 
+//Potion Variables
+var PotionActive : boolean;
+var playerMesh : GameObject;
+playerMesh = playerHolder.Find("Succubus");
+
+//Enemy Scripts
+private var flyScript : flyingEnemyController;
+
+
 function Start () {
 
 //setting powerup values to false
@@ -56,6 +65,8 @@ function Start () {
     powerUpContainer.color = emptyPowerUp;
     mySlider.value = 100;
     healthText.text = mySlider.value + " / " + totalHealth;
+
+    flyScript = GameObject.FindGameObjectWithTag("flyEnemyCont").GetComponent(flyingEnemyController);
 }
 
 function Update () {
@@ -65,7 +76,7 @@ function Update () {
 			inventory["shield"] = false;
 			clearInventory();
 		}else if(inventory["hourglass"]){
-			Debug.Log("Hourglass Function");
+			hourglassActive();
 			inventory["hourglass"] = false;
 			clearInventory();
 		}else if(inventory["bomb"]){
@@ -73,7 +84,7 @@ function Update () {
 			inventory["bomb"] = false;
 			clearInventory();
 		}else if(inventory["potion"]){
-			Debug.Log("Potion Function");
+			potionAlpha();
 			inventory["potion"] = false;
 			clearInventory();
 		}
@@ -205,4 +216,26 @@ function shieldProtect(){
 	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
 	player.transform.parent = playerHolder.transform;
 	player.transform.localPosition = new Vector3(0,1,0);
+}
+
+function hourglassActive(){
+	flyScript.slowDown();
+	Debug.Log("Hourglass Active");
+	Invoke("hourglassEnd", 2);
+}
+
+function hourglassEnd(){
+	flyScript.returnSpeed();
+	Debug.Log("No More Hourglass");
+}
+
+function potionAlpha(){
+	PotionActive = true;
+	Debug.Log("Potion Alpha");
+	Invoke("potionEnd", 10);
+}
+
+function potionEnd(){
+	PotionActive = false;
+	Debug.Log("No More Potion");
 }

@@ -19,3 +19,11 @@ function FixedUpdate(){
 	// Apply New Gravity
 	GetComponent.<Rigidbody>().AddForce(new Vector3(0,-gravity*GetComponent.<Rigidbody>().mass,0));
 }
+
+function slowDown(){
+	speed = -0.5;
+}
+
+function returnSpeed(){
+	speed = -2;
+}

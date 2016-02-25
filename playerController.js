@@ -79,22 +79,28 @@ function OnTriggerEnter(other:Collider){
 
 	//Terrain Collider
 	if(other.tag == "terrain"){
-		playerStatus.takeDamage(10);
-		Debug.Log("Player took Damage");
+		if(!playerStatus.PotionActive){
+			playerStatus.takeDamage(10);
+			Debug.Log("Player took Damage");
+		}
 	}
 
 	//Flying Enemies
 	if(other.tag == "flyEnemy"){
-		playerStatus.takeDamage(20);
-		Destroy(other.gameObject);
-		Debug.Log("Player took Damage");
+		if(!playerStatus.PotionActive){
+			playerStatus.takeDamage(20);
+			Destroy(other.gameObject);
+			Debug.Log("Player took Damage");
+		}
 	}
 
 	//Ground Enemies
 	if(other.tag == "grdEnemy"){
-		playerStatus.takeDamage(30);
-		Destroy(other.gameObject);
-		Debug.Log("Player took Damage");
+		if(!playerStatus.PotionActive){
+			playerStatus.takeDamage(30);
+			Destroy(other.gameObject);
+			Debug.Log("Player took Damage");
+		}
 	}
 
 }
