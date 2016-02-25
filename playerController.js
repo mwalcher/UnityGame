@@ -30,6 +30,10 @@ function FixedUpdate(){
 	if(Input.GetButton("Jump")){
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
+
+	if(Input.GetKey("right")){
+		this.gameObject.transform.GetChild(1).GetComponent.<Animation>().Play("ClawAttack");
+	}
 }
 
 function OnTriggerEnter(other:Collider){
@@ -81,7 +85,7 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "terrain"){
 		if(!playerStatus.PotionActive){
 			playerStatus.takeDamage(10);
-			Debug.Log("Player took Damage");
+			//Debug.Log("Player took Damage");
 		}
 	}
 
@@ -90,7 +94,7 @@ function OnTriggerEnter(other:Collider){
 		if(!playerStatus.PotionActive){
 			playerStatus.takeDamage(20);
 			Destroy(other.gameObject);
-			Debug.Log("Player took Damage");
+			//Debug.Log("Player took Damage");
 		}
 	}
 
@@ -99,7 +103,7 @@ function OnTriggerEnter(other:Collider){
 		if(!playerStatus.PotionActive){
 			playerStatus.takeDamage(30);
 			Destroy(other.gameObject);
-			Debug.Log("Player took Damage");
+			//Debug.Log("Player took Damage");
 		}
 	}
 
