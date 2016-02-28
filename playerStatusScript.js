@@ -45,7 +45,7 @@ var playerHolder : GameObject;
 playerHolder = GameObject.Find("Player");
 
 //Potion Variables
-var PotionActive : boolean;
+var invincible : boolean;
 var playerMesh : GameObject;
 playerMesh = playerHolder.Find("Succubus");
 
@@ -216,6 +216,7 @@ function shieldProtect(){
 	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
 	player.transform.parent = playerHolder.transform;
 	player.transform.localPosition = new Vector3(0,1,0);
+	invincible = true;
 }
 
 function hourglassActive(){
@@ -230,12 +231,12 @@ function hourglassEnd(){
 }
 
 function potionAlpha(){
-	PotionActive = true;
+	invincible = true;
 	Debug.Log("Potion Alpha");
 	Invoke("potionEnd", 10);
 }
 
 function potionEnd(){
-	PotionActive = false;
+	invincible = false;
 	Debug.Log("No More Potion");
 }

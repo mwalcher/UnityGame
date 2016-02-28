@@ -30,10 +30,6 @@ function FixedUpdate(){
 	if(Input.GetButton("Jump")){
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
-
-	if(Input.GetKey("right")){
-		this.gameObject.transform.GetChild(1).GetComponent.<Animation>().Play("ClawAttack");
-	}
 }
 
 function OnTriggerEnter(other:Collider){
@@ -83,7 +79,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Terrain Collider
 	if(other.tag == "terrain"){
-		if(!playerStatus.PotionActive){
+		if(!playerStatus.invincible){
 			playerStatus.takeDamage(10);
 			//Debug.Log("Player took Damage");
 		}
@@ -91,7 +87,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Flying Enemies
 	if(other.tag == "flyEnemy"){
-		if(!playerStatus.PotionActive){
+		if(!playerStatus.invincible){
 			playerStatus.takeDamage(20);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
@@ -100,7 +96,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Ground Enemies
 	if(other.tag == "grdEnemy"){
-		if(!playerStatus.PotionActive){
+		if(!playerStatus.invincible){
 			playerStatus.takeDamage(30);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
