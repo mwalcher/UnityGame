@@ -189,20 +189,17 @@ private function addLife() {
     // decrease number of lives
     // set slider value back to 100
 private function removeLife() {
+	numberOfLives--;
+
     if(numberOfLives == 0) {
         gameOver();
         return;
-    }
-
-    if(numberOfLives == 1) {
-        heartImage1.color = deadLifeColour;
-    } else if(numberOfLives == 2) {
+    } else if(numberOfLives == 1) {
         heartImage2.color = deadLifeColour;
-    } else if(numberOfLives == 3) {
+    } else if(numberOfLives == 2) {
         heartImage3.color = deadLifeColour;
     }
 
-    numberOfLives--;
     fullHealth();
 }
 
