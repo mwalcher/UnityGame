@@ -33,6 +33,10 @@ private var inventory = new Dictionary.<String,boolean>();
 private var inventoryNames = new Array ("shield","hourglass","bomb","potion");
 private var hasItem : boolean = false;
 
+public var playerMeshRenderer : SkinnedMeshRenderer;
+public var whiteTexture : Texture;
+public var regularTexture : Texture;
+
 private var deadLifeColour = new Color(83f/255, 83f/255, 83f/255, 1);
 private var aliveLifeColour = new Color(255, 255, 255, 1);
 private var emptyPowerUp = new Color(30,30,30, 0.1);
@@ -51,7 +55,6 @@ playerMesh = playerHolder.Find("Succubus");
 
 //Enemy Scripts
 private var flyScript : flyingEnemyController;
-
 
 function Start () {
 
@@ -230,10 +233,19 @@ function hourglassEnd(){
 function potionAlpha(){
 	invincible = true;
 	Debug.Log("Potion Alpha");
-	Invoke("potionEnd", 10);
+	var diffuseShader : Shader;
+		diffuseShader = Shader.Find("Unlit/Transparent");
+		playerMeshRenderer.material.shader = diffuseShader;
+		playerMeshRenderer.material.mainTexture = whiteTexture;
+	Invoke("potionEnd", 1);
 }
 
 function potionEnd(){
+	Debug.Log('I am invoking potionend');
 	invincible = false;
+	var diffuseShader : Shader;
+		diffuseShader = Shader.Find("Unlit/Texture");
+		playerMeshRenderer.material.shader = diffuseShader;
+		playerMeshRenderer.material.mainTexture = regularTexture;
 	Debug.Log("No More Potion");
 }
