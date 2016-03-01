@@ -33,25 +33,24 @@ private var inventory = new Dictionary.<String,boolean>();
 private var inventoryNames = new Array ("shield","hourglass","bomb","potion");
 private var hasItem : boolean = false;
 
-public var playerMeshRenderer : SkinnedMeshRenderer;
-public var whiteTexture : Texture;
-public var regularTexture : Texture;
-
 private var deadLifeColour = new Color(83f/255, 83f/255, 83f/255, 1);
 private var aliveLifeColour = new Color(255, 255, 255, 1);
 private var emptyPowerUp = new Color(30,30,30, 0.1);
 private var fullPowerUp = new Color(255,255,255,1);
 private var clearPowerUp = new Color(255,255,255,0);
 
-//Shield Bubble Variables
-var ShieldActive : boolean;
-var playerHolder : GameObject;
+//Powerup Variables
+public var invincible : boolean;
+
+// Shield
+private var ShieldActive : boolean;
+private var playerHolder : GameObject;
 playerHolder = GameObject.Find("Player");
 
-//Potion Variables
-var invincible : boolean;
-var playerMesh : GameObject;
-playerMesh = playerHolder.Find("Succubus");
+// Potion 
+public var playerMeshRenderer : SkinnedMeshRenderer;
+public var whiteTexture : Texture;
+public var regularTexture : Texture;
 
 //Enemy Scripts
 private var flyScript : flyingEnemyController;
@@ -222,7 +221,7 @@ function shieldProtect(){
 function hourglassActive(){
 	flyScript.slowDown();
 	Debug.Log("Hourglass Active");
-	Invoke("hourglassEnd", 2);
+	Invoke("hourglassEnd", 10);
 }
 
 function hourglassEnd(){
@@ -237,7 +236,7 @@ function potionAlpha(){
 		diffuseShader = Shader.Find("Unlit/Transparent");
 		playerMeshRenderer.material.shader = diffuseShader;
 		playerMeshRenderer.material.mainTexture = whiteTexture;
-	Invoke("potionEnd", 1);
+	Invoke("potionEnd", 10);
 }
 
 function potionEnd(){

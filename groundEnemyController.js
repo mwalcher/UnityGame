@@ -21,10 +21,10 @@ function FixedUpdate(){
 
     if(this.distance < 10 && this.distance > 0){
     	//Attack();
-    	Debug.Log("Attack");
+    	//Debug.Log("Attack");
     }else if(this.distance < 0){
     	//Idle();
-    	Debug.Log("Idle");
+    	//Debug.Log("Idle");
     }
 
 }
