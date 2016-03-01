@@ -4,21 +4,13 @@ import System.Collections.Generic;
 
 private var speed : float = -2;
 private var player : GameObject;
-private var target : Transform;
-private var turnSpeed : float = 5.0f;
-private var _dir : Vector3;
+private var target : Vector3;
+private var enemy : Vector3;
+private var distance : float;
+private var dir : float;
 
 function Start(){
 	player = GameObject.Find("Player");
-	target = player.transform;
-}
-
-function Update () {
-     //if(target){
-     //   _dir = target.position - GetComponent.<Rigidbody>().position;
-     //   _dir.Normalize();
-     //   transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_dir), turnSpeed * Time.deltaTime);
-     //}
 }
 
 function FixedUpdate(){
@@ -26,9 +18,20 @@ function FixedUpdate(){
 	GetComponent.<Rigidbody>().velocity.x = speed;
 
 	// Follow Player
-	//GetComponent.<Rigidbody>().AddForce(_dir * speed);
-	transform.position = new Vector3(transform.position.x, player.transform.position.y, 0);
-	//transform.position = new Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+	target = player.transform.position;
+    enemy = transform.position;
+    distance = enemy.x - target.x;
+    dir = enemy.y - target.y;
+
+    if(this.distance < 20 && this.distance > 0){
+    	transform.rotation.x = -dir/10;
+    	transform.rotation.y = 0.75;
+    	transform.rotation.z = 0;
+    }else if(this.distance < 0){
+    	transform.rotation.x = 0;
+    	transform.rotation.y = 0.75;
+    	transform.rotation.z = 0;
+    }
 }
 
 function slowDown(){

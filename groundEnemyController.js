@@ -1,32 +1,38 @@
 ﻿#pragma strict
 
 var anim: Animator;
+private var player : GameObject;
+private var target : Vector3;
+private var enemy : Vector3;
+private var distance : float;
 
 function Start(){
+	player = GameObject.Find("Player");
 	anim = GetComponent("Animator");
 	InvokeRepeating("Attack", .01, 2.0);
 }
 
-function Update () {
-	if(Trigger()){
-		//Debug.Log("Attack!");
-		//Attack();
-	}
+function FixedUpdate(){
+
+	// Follow Player
+	target = player.transform.position;
+    enemy = transform.position;
+    distance = enemy.x - target.x;
+
+    if(this.distance < 10 && this.distance > 0){
+    	//Attack();
+    	Debug.Log("Attack");
+    }else if(this.distance < 0){
+    	//Idle();
+    	Debug.Log("Idle");
+    }
+
 }
 
 function Attack(){
 	anim.Play("attack01", -1, 0.0f);
-	//yield WaitForSeconds(2.0);
 }
 
-function Trigger(){
-	var origin : Vector3 = transform.position;
-	origin.x -= 5;
-	Debug.DrawRay(origin, Vector3.down * 10, Color.red);
-
-	//if(Physics.Raycast(origin,Vector3.down,jumpLine)){
-		return true;
-	//}else{
-	//	return false;
-	//}
+function Idle(){
+	anim.Play("idle", -1, 0.0f);
 }
