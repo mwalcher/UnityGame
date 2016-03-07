@@ -2,15 +2,20 @@
 
 import System.Collections.Generic;
 
-private var speed : float = -2;
+var anim: Animator;
 private var player : GameObject;
 private var target : Vector3;
 private var enemy : Vector3;
 private var distance : float;
 private var dir : float;
+private var speed : float = -2;
+
+private var playerStatus : playerStatusScript;
 
 function Start(){
 	player = GameObject.Find("Player");
+	anim = GetComponent("Animator");
+	playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
 }
 
 function FixedUpdate(){
@@ -23,7 +28,7 @@ function FixedUpdate(){
     distance = enemy.x - target.x;
     dir = enemy.y - target.y;
 
-    if(this.distance < 20 && this.distance > 0){
+    if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
     	transform.rotation.x = -dir/10;
     	transform.rotation.y = 0.75;
     	transform.rotation.z = 0;
@@ -35,9 +40,16 @@ function FixedUpdate(){
 }
 
 function slowDown(){
-	speed = -0.5;
+	speed = -1;
 }
 
 function returnSpeed(){
 	speed = -2;
+}
+
+function Die(){
+	speed = 0;
+	anim.Play("Die", -1, 0.0f);
+	yield WaitForSeconds(1);
+	Destroy(gameObject);
 }

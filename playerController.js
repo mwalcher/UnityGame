@@ -79,7 +79,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Terrain Collider
 	if(other.tag == "terrain"){
-		if(!playerStatus.invincible){
+		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(10);
 			//Debug.Log("Player took Damage");
 		}
@@ -87,7 +87,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Flying Enemies
 	if(other.tag == "flyEnemy"){
-		if(!playerStatus.invincible){
+		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(20);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
@@ -96,7 +96,7 @@ function OnTriggerEnter(other:Collider){
 
 	//Ground Enemies
 	if(other.tag == "grdEnemy"){
-		if(!playerStatus.invincible){
+		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(30);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");

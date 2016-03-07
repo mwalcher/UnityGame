@@ -40,7 +40,8 @@ private var fullPowerUp = new Color(255,255,255,1);
 private var clearPowerUp = new Color(255,255,255,0);
 
 //Powerup Variables
-public var invincible : boolean;
+private var invincible : boolean;
+private var focused : boolean;
 
 // Shield
 private var ShieldActive : boolean;
@@ -54,10 +55,10 @@ public var regularTexture : Texture;
 
 //Enemy Scripts
 private var flyScript : flyingEnemyController;
+private var grdScript : groundEnemyController;
 
 function Start () {
-
-//setting powerup values to false
+	//setting powerup values to false
 
     inventory["shield"] = false;
     inventory["hourglass"] = false;
@@ -67,8 +68,6 @@ function Start () {
     powerUpContainer.color = emptyPowerUp;
     mySlider.value = 100;
     healthText.text = mySlider.value + " / " + totalHealth;
-
-    flyScript = GameObject.FindGameObjectWithTag("flyEnemyCont").GetComponent(flyingEnemyController);
 }
 
 function Update () {
@@ -82,7 +81,7 @@ function Update () {
 			inventory["hourglass"] = false;
 			clearInventory();
 		}else if(inventory["bomb"]){
-			Debug.Log("Bomb Function");
+			bombEnemies();
 			inventory["bomb"] = false;
 			clearInventory();
 		}else if(inventory["potion"]){
@@ -218,33 +217,58 @@ function shieldProtect(){
 	invincible = true;
 }
 
+function bombEnemies(){
+	//Debug.Log("Bomb Active");
+
+	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+        flyEnemy.GetComponent(flyingEnemyController).Die();
+    }
+
+    for(var grdEnemy : GameObject in GameObject.FindGameObjectsWithTag("grdEnemyCont")){
+        grdEnemy.GetComponent(groundEnemyController).Die();
+    }
+}
+
 function hourglassActive(){
-	flyScript.slowDown();
+	focused = true;
+	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+        flyEnemy.GetComponent(flyingEnemyController).slowDown();
+    }
 	Debug.Log("Hourglass Active");
 	Invoke("hourglassEnd", 10);
 }
 
 function hourglassEnd(){
-	flyScript.returnSpeed();
+	focused = false;
+	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+        flyEnemy.GetComponent(flyingEnemyController).returnSpeed();
+    }
 	Debug.Log("No More Hourglass");
 }
 
 function potionAlpha(){
+	//Debug.Log("Potion Alpha");
 	invincible = true;
-	Debug.Log("Potion Alpha");
 	var diffuseShader : Shader;
-		diffuseShader = Shader.Find("Unlit/Transparent");
-		playerMeshRenderer.material.shader = diffuseShader;
-		playerMeshRenderer.material.mainTexture = whiteTexture;
+	diffuseShader = Shader.Find("Unlit/Transparent");
+	playerMeshRenderer.material.shader = diffuseShader;
+	playerMeshRenderer.material.mainTexture = whiteTexture;
 	Invoke("potionEnd", 10);
 }
 
 function potionEnd(){
-	Debug.Log('I am invoking potionend');
+	//Debug.Log("No More Potion");
 	invincible = false;
 	var diffuseShader : Shader;
-		diffuseShader = Shader.Find("Unlit/Texture");
-		playerMeshRenderer.material.shader = diffuseShader;
-		playerMeshRenderer.material.mainTexture = regularTexture;
-	Debug.Log("No More Potion");
+	diffuseShader = Shader.Find("Unlit/Texture");
+	playerMeshRenderer.material.shader = diffuseShader;
+	playerMeshRenderer.material.mainTexture = regularTexture;
+}
+
+function isInvincible(){
+	return invincible;
+}
+
+function isFocused(){
+	return focused;
 }
