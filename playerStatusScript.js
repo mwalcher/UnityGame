@@ -261,6 +261,7 @@ private function hourglassEnd(){
 private function potionAlpha(){
 	//Debug.Log("Potion Alpha");
 	invincible = true;
+	focused = true;
 	var diffuseShader : Shader;
 	diffuseShader = Shader.Find("Unlit/Transparent");
 	playerMeshRenderer.material.shader = diffuseShader;
@@ -271,6 +272,7 @@ private function potionAlpha(){
 private function potionEnd(){
 	//Debug.Log("No More Potion");
 	invincible = false;
+	focused = false;
 	var diffuseShader : Shader;
 	diffuseShader = Shader.Find("Unlit/Texture");
 	playerMeshRenderer.material.shader = diffuseShader;
