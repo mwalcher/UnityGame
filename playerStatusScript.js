@@ -2,6 +2,9 @@
 
 import UnityEngine.UI;
 
+// animator
+private var anim: Animator;
+
 // health slider
 public var mySlider : UnityEngine.UI.Slider;
 public var gemSlider : UnityEngine.UI.Slider;
@@ -10,7 +13,6 @@ public var gemSlider : UnityEngine.UI.Slider;
 public var heartImage1 : UnityEngine.UI.RawImage;
 public var heartImage2 : UnityEngine.UI.RawImage;
 public var heartImage3 : UnityEngine.UI.RawImage;
-
 public var healthText : UnityEngine.UI.Text;
 public var livesText : UnityEngine.UI.Text;
 
@@ -44,7 +46,7 @@ private var invincible : boolean;
 private var focused : boolean;
 
 // Shield
-private var ShieldActive : boolean;
+private var shieldActive : boolean;
 private var playerHolder : GameObject;
 playerHolder = GameObject.Find("Player");
 
@@ -58,8 +60,9 @@ private var flyScript : flyingEnemyController;
 private var grdScript : groundEnemyController;
 
 function Start () {
-	//setting powerup values to false
+	anim = GameObject.Find("Flora").GetComponent("Animator");
 
+	//setting powerup values to false
     inventory["shield"] = false;
     inventory["hourglass"] = false;
     inventory["bomb"] = false;
@@ -131,7 +134,7 @@ public function addToInventory(object : String) {
 
 }
 
-public function clearInventory() {
+private function clearInventory() {
     hasItem = false;
     powerUpContainer.color = emptyPowerUp;
 	powerUpImage.color = clearPowerUp;
@@ -193,31 +196,40 @@ private function removeLife() {
 	numberOfLives--;
 
     if(numberOfLives == 0) {
+    	heartImage1.color = deadLifeColour;
+    	anim.Play("Die", -1, 0.0f);
+    	yield WaitForSeconds(1);
         gameOver();
-        return;
     } else if(numberOfLives == 1) {
         heartImage2.color = deadLifeColour;
+        fullHealth();
     } else if(numberOfLives == 2) {
         heartImage3.color = deadLifeColour;
+        fullHealth();
     }
 
-    fullHealth();
 }
 
-public function gameOver() {
+private function gameOver() {
     Debug.Log("GameOver");
 }
 
 // Item Functions
 
-function shieldProtect(){
+private function shieldProtect(){
 	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
 	player.transform.parent = playerHolder.transform;
 	player.transform.localPosition = new Vector3(0,1,0);
 	invincible = true;
+	shieldActive = true;
 }
 
-function bombEnemies(){
+public function shieldBreak(){
+	shieldActive = false;
+	invincible = false;
+}
+
+private function bombEnemies(){
 	//Debug.Log("Bomb Active");
 
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
@@ -229,24 +241,24 @@ function bombEnemies(){
     }
 }
 
-function hourglassActive(){
+private function hourglassActive(){
+	//Debug.Log("Hourglass Active");
 	focused = true;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
         flyEnemy.GetComponent(flyingEnemyController).slowDown();
     }
-	Debug.Log("Hourglass Active");
 	Invoke("hourglassEnd", 10);
 }
 
-function hourglassEnd(){
+private function hourglassEnd(){
+	//Debug.Log("No More Hourglass");
 	focused = false;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
         flyEnemy.GetComponent(flyingEnemyController).returnSpeed();
     }
-	Debug.Log("No More Hourglass");
 }
 
-function potionAlpha(){
+private function potionAlpha(){
 	//Debug.Log("Potion Alpha");
 	invincible = true;
 	var diffuseShader : Shader;
@@ -256,7 +268,7 @@ function potionAlpha(){
 	Invoke("potionEnd", 10);
 }
 
-function potionEnd(){
+private function potionEnd(){
 	//Debug.Log("No More Potion");
 	invincible = false;
 	var diffuseShader : Shader;
@@ -265,10 +277,14 @@ function potionEnd(){
 	playerMeshRenderer.material.mainTexture = regularTexture;
 }
 
-function isInvincible(){
+public function isInvincible(){
 	return invincible;
 }
 
-function isFocused(){
+public function isFocused(){
 	return focused;
+}
+
+public function shieldOn(){
+	return shieldActive;
 }

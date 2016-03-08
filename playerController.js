@@ -82,6 +82,9 @@ function OnTriggerEnter(other:Collider){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(10);
 			//Debug.Log("Player took Damage");
+		}else if(playerStatus.shieldOn()){
+			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
+			playerStatus.shieldBreak();
 		}
 	}
 
@@ -91,6 +94,10 @@ function OnTriggerEnter(other:Collider){
 			playerStatus.takeDamage(20);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
+		}else if(playerStatus.shieldOn()){
+			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
+			Destroy(other.gameObject);
+			playerStatus.shieldBreak();
 		}
 	}
 
@@ -100,6 +107,10 @@ function OnTriggerEnter(other:Collider){
 			playerStatus.takeDamage(30);
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
+		}else if(playerStatus.shieldOn()){
+			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
+			Destroy(other.gameObject);
+			playerStatus.shieldBreak();
 		}
 	}
 
