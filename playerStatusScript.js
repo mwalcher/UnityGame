@@ -74,7 +74,7 @@ function Start () {
 }
 
 function Update () {
-	if(Input.GetKeyUp("z")){
+	if(Input.GetButton("Fire1")){
 		if(inventory["shield"]){
 			shieldProtect();
 			inventory["shield"] = false;
@@ -250,7 +250,7 @@ private function hourglassActive(){
 	Invoke("hourglassEnd", 10);
 }
 
-private function hourglassEnd(){
+public function hourglassEnd(){
 	//Debug.Log("No More Hourglass");
 	focused = false;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
@@ -269,7 +269,7 @@ private function potionAlpha(){
 	Invoke("potionEnd", 10);
 }
 
-private function potionEnd(){
+public function potionEnd(){
 	//Debug.Log("No More Potion");
 	invincible = false;
 	focused = false;
