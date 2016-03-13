@@ -18,7 +18,7 @@ function Update () {
 }
 
 function OnMouseEnter() {
-	Debug.Log('mouseover');
+	//Debug.Log('mouseover');
 	myText.color = new Color(255,255,255,1);
 
 	lightObj.enabled = true;
@@ -26,7 +26,7 @@ function OnMouseEnter() {
 }
 
 function OnMouseExit() {
-	Debug.Log('mouseout');
+	//Debug.Log('mouseout');
 
 	lightObj.enabled = false;
 	myText.color = startingColor;

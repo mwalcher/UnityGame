@@ -67,6 +67,10 @@ function Start () {
 
 	if(GameState.getCurLevel() == "Terra"){
 		anim = GameObject.Find("Flora").GetComponent("Animator");
+	}else if(GameState.getCurLevel() == "Polaris"){
+		anim = GameObject.Find("Aurora").GetComponent("Animator");
+	}else if(GameState.getCurLevel() == "Vulcan"){
+		anim = GameObject.Find("Hestia").GetComponent("Animator");
 	}
 
 	Debug.Log(GameState.getCurLevel());
