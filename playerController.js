@@ -2,18 +2,21 @@
 
 import System.Collections.Generic;
 
-private var speed : float = 3;
+private var speed : float;
 private var flyHeight : float = 3;
-private var gravity : float = 8;
+private var gravity : float;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
 
 private var playerStatus : playerStatusScript;
+private var flyScript : flyingEnemyController;
 
 
 function Start() {
     playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
+    speed = 0;
+    gravity = 0;
 }
 
 function FixedUpdate(){
@@ -28,6 +31,14 @@ function FixedUpdate(){
 	
 	// Handle Flying
 	if(Input.GetButton("Jump")){
+		if(speed == 0 && gravity == 0){
+			speed = 3;
+			gravity = 8;
+
+			for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+		        flyEnemy.GetComponent(flyingEnemyController).returnSpeed();
+		    }
+		}
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
 }

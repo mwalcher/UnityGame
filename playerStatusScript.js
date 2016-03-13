@@ -59,8 +59,17 @@ public var regularTexture : Texture;
 private var flyScript : flyingEnemyController;
 private var grdScript : groundEnemyController;
 
+//Level Script
+private var selectScript : ScreenSelectionGUI;
+
 function Start () {
-	anim = GameObject.Find("Flora").GetComponent("Animator");
+	//selectScript = GameObject.FindGameObjectWithTag("GameState").GetComponent(ScreenSelectionGUI);
+
+	if(GameState.getCurLevel() == "Terra"){
+		anim = GameObject.Find("Flora").GetComponent("Animator");
+	}
+
+	Debug.Log(GameState.getCurLevel());
 
 	//setting powerup values to false
     inventory["shield"] = false;

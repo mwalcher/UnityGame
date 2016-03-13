@@ -28,6 +28,7 @@ public var vulcanRing : Graphic;
 
 public function loadLevel(levelName : String) {
     // SceneManager.LoadScene(levelName);
+    GameState.curLevel(levelName);
     Application.LoadLevel(levelName);
 }
 
