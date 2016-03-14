@@ -34,7 +34,13 @@ function FixedUpdate(){
 	// Handle Flying
 	if(Input.GetButton("Jump")){
 		if(speed == 0 && gravity == 0){
-			speed = 3;
+			if(GameState.getCurLevel() == "Terra"){
+				speed = 3;
+			}else if(GameState.getCurLevel() == "Polaris"){
+				speed = 4.5;
+			}else if(GameState.getCurLevel() == "Vulcan"){
+				speed = 6;
+			}
 			gravity = 8;
 			start = true;
 		}
