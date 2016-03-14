@@ -97,6 +97,13 @@ function OnTriggerEnter(other:Collider){
 		//Debug.Log("Hourglass has been picked up");
 	}
 
+	//Ring Pickup
+	if(other.tag == "ring"){
+		Destroy(other.gameObject);
+		Application.LoadLevel("congrats");
+		Debug.Log("Ring collected");
+	}
+
 	//Terrain Collider
 	if(other.tag == "terrain"){
 		if(!playerStatus.isInvincible()){
