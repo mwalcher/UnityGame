@@ -36,13 +36,13 @@ function FixedUpdate(){
 		if(!start){
 
 			if(GameState.getCurLevel() == "Terra"){
-				speed = 3;
+				speed = 4;
 			}else if(GameState.getCurLevel() == "Polaris"){
-				speed = 4.5;
+				speed = 5;
 			}else if(GameState.getCurLevel() == "Vulcan"){
 				speed = 6;
 			}else{
-				speed = 3;
+				speed = 4;
 			}
 
 			gravity = 8;
