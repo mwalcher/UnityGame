@@ -240,14 +240,17 @@ public function shieldBreak(){
 }
 
 private function bombEnemies(){
-	//Debug.Log("Bomb Active");
-
+	// Debug.Log("Bomb Active");
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
-        flyEnemy.GetComponent(flyingEnemyController).Die();
+		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=50) {
+			flyEnemy.GetComponent(flyingEnemyController).Die();
+		}
     }
 
     for(var grdEnemy : GameObject in GameObject.FindGameObjectsWithTag("grdEnemyCont")){
-        grdEnemy.GetComponent(groundEnemyController).Die();
+    	if(grdEnemy.GetComponent(groundEnemyController).distance >=-10 && grdEnemy.GetComponent(groundEnemyController).distance <=50) {
+			grdEnemy.GetComponent(groundEnemyController).Die();
+		}
     }
 }
 

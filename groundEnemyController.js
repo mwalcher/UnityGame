@@ -6,7 +6,7 @@ var anim: Animator;
 private var player : GameObject;
 private var target : Vector3;
 private var enemy : Vector3;
-private var distance : float;
+public var distance : float;
 private var attack : String;
 private var trigger : boolean;
 private var idle : boolean;
