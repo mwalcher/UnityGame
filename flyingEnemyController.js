@@ -8,7 +8,7 @@ private var target : Vector3;
 private var enemy : Vector3;
 private var distance : float;
 private var dir : float;
-private var speed : float = -2;
+private var speed : float;
 
 private var playerStatus : playerStatusScript;
 
@@ -16,6 +16,8 @@ function Start(){
 	player = GameObject.Find("Player");
 	anim = GetComponent("Animator");
 	playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
+
+	speed = 0;
 }
 
 function FixedUpdate(){
@@ -27,6 +29,10 @@ function FixedUpdate(){
     enemy = transform.position;
     distance = enemy.x - target.x;
     dir = enemy.y - target.y;
+
+    if(this.distance < 50 && playerController.start){
+    	speed = -2;
+    }
 
     if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
     	transform.rotation.x = -dir/10;

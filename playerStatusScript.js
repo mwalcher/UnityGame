@@ -26,8 +26,8 @@ public var shieldTexture : UnityEngine.Texture;
 public var hourglassTexture : UnityEngine.Texture;
 
 // inventory references
-private var numberOfLives : int = 3;
-private var numberOfGems : int = 0;
+private var numberOfLives : int;
+private var numberOfGems : int;
 private var totalNumberOfGems : int = 50;
 private var totalHealth : int = 100;
 
@@ -60,13 +60,23 @@ private var flyScript : flyingEnemyController;
 private var grdScript : groundEnemyController;
 
 function Start () {
-	anim = GameObject.Find("Flora").GetComponent("Animator");
+
+	if(GameState.getCurLevel() == "Terra"){
+		anim = GameObject.Find("Flora").GetComponent("Animator");
+	}else if(GameState.getCurLevel() == "Polaris"){
+		anim = GameObject.Find("Aurora").GetComponent("Animator");
+	}else if(GameState.getCurLevel() == "Vulcan"){
+		anim = GameObject.Find("Hestia").GetComponent("Animator");
+	}
 
 	//setting powerup values to false
     inventory["shield"] = false;
     inventory["hourglass"] = false;
     inventory["bomb"] = false;
     inventory["potion"] = false;
+
+    numberOfLives = GameState.getTotalLives();
+	numberOfGems = GameState.getTotalGems();
 
     powerUpContainer.color = emptyPowerUp;
     mySlider.value = 100;

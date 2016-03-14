@@ -28,6 +28,7 @@ public var vulcanRing : Graphic;
 
 public function loadLevel(levelName : String) {
     // SceneManager.LoadScene(levelName);
+    GameState.curLevel(levelName);
     Application.LoadLevel(levelName);
 }
 
@@ -86,7 +87,7 @@ function Update () {
          
          if( Physics.Raycast( ray, hit, 100 ) ) {
             
-            if (hit.transform.gameObject.name=="Succubus-Red") {
+            if (hit.transform.gameObject.name=="Hestia") {
                 pushRight = 10;
                 targetFOV = 30;
                 shouldZoom = true;
@@ -95,24 +96,16 @@ function Update () {
                 vulcanCanvas.enabled = true;
             }
 
-            if (hit.transform.gameObject.name=="Succubus-Green") {
+            if (hit.transform.gameObject.name=="Aurora") {
                 pushRight = -5;
-                shouldZoom = true;
                 targetFOV = 20;
+                shouldZoom = true;
                 shouldReturnToOrigin = false;
                 targetChar = hit.transform;
                 polarisCanvas.enabled = true;
-
-                // fade in
-       //           var graphics : Graphic[] = fadePanel.GetComponentsInChildren.<Graphic>();
-                // for (var i: Graphic in graphics) {
-    //                  i.CrossFadeAlpha(150f,0.5f,true);
-                // }
-
-                // fadePanel.CrossFadeAlpha(150f,1.0f,true);
             }
 
-            if (hit.transform.gameObject.name=="Succubus-Purple") {
+            if (hit.transform.gameObject.name=="Flora") {
                 pushRight = -10;
                 targetFOV = 30;
                 shouldZoom = true;
@@ -120,7 +113,7 @@ function Update () {
                 targetChar = hit.transform;
                 terraCanvas.enabled = true;
             }
-             Debug.Log( hit.transform.gameObject.name );
+             //Debug.Log( hit.transform.gameObject.name );
          }
      }
 
