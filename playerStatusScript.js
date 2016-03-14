@@ -5,6 +5,10 @@ import UnityEngine.UI;
 // animator
 private var anim: Animator;
 
+
+//light
+public var directionalLight : Light;
+
 // health slider
 public var mySlider : UnityEngine.UI.Slider;
 public var gemSlider : UnityEngine.UI.Slider;
@@ -240,8 +244,20 @@ public function shieldBreak(){
 }
 
 private function bombEnemies(){
-	// Debug.Log("Bomb Active");
-	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+	var defaultIntensity = directionalLight.intensity;
+	directionalLight.intensity = 2;
+	for(var i=0; i<5; i++) {
+		yield;
+	}
+	directionalLight.intensity = 8;
+	for(var j=0; j<8; j++) {
+		yield;
+	}
+	
+	directionalLight.intensity = defaultIntensity;
+
+	Debug.Log(directionalLight.intensity);
+;	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
 		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=50) {
 			flyEnemy.GetComponent(flyingEnemyController).Die();
 		}
