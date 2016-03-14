@@ -8,14 +8,14 @@ public class GameState extends MonoBehaviour {
 	public static var currentLevel : String;
 
 	function Awake() {
-		Debug.Log("Creating game state manager");
+		//Debug.Log("Creating game state manager");
 		if(gameState == null) {
 			DontDestroyOnLoad(gameObject);
 			gameState = this;
-			Debug.Log("No gameobject exists, this will be the singleton");
-		} else if (gameState != this) {
+			//Debug.Log("No gameobject exists, this will be the singleton");
+		}else{
 			Destroy(gameObject);
-			Debug.Log("Gameobject already exists, destroying this");
+			//Debug.Log("Gameobject already exists, destroying this");
 		}
 	}
 

@@ -30,6 +30,10 @@ function FixedUpdate(){
     distance = enemy.x - target.x;
     dir = enemy.y - target.y;
 
+    if(this.distance < 50){
+    	speed = -2;
+    }
+
     if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
     	transform.rotation.x = -dir/10;
     	transform.rotation.y = 0.75;

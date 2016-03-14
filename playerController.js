@@ -34,10 +34,6 @@ function FixedUpdate(){
 		if(speed == 0 && gravity == 0){
 			speed = 3;
 			gravity = 8;
-
-			for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
-		        flyEnemy.GetComponent(flyingEnemyController).returnSpeed();
-		    }
 		}
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
