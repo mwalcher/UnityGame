@@ -30,7 +30,7 @@ function FixedUpdate(){
     distance = enemy.x - target.x;
     dir = enemy.y - target.y;
 
-    if(this.distance < 50){
+    if(this.distance < 50 && playerController.start){
     	speed = -2;
     }
 

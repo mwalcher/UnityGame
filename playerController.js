@@ -5,6 +5,7 @@ import System.Collections.Generic;
 private var speed : float;
 private var flyHeight : float = 3;
 private var gravity : float;
+public static var start : boolean;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
@@ -17,6 +18,7 @@ function Start() {
     playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
     speed = 0;
     gravity = 0;
+    start = false;
 }
 
 function FixedUpdate(){
@@ -34,6 +36,7 @@ function FixedUpdate(){
 		if(speed == 0 && gravity == 0){
 			speed = 3;
 			gravity = 8;
+			start = true;
 		}
 		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
