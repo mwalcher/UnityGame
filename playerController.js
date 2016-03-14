@@ -125,6 +125,11 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "grdEnemy"){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(30);
+			var childs : int = other.transform.parent.childCount;
+			// Debug.Log(other.transform.parent.childCount);
+			for (var i = childs-1; i>=0; i--) {
+				Destroy(other.transform.parent.GetChild(i).gameObject);
+			}
 			Destroy(other.gameObject);
 			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
