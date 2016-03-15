@@ -7,9 +7,9 @@ private var player : GameObject;
 private var target : Vector3;
 private var enemy : Vector3;
 public var distance : float;
-private var dir : float;
 private var speed : float;
 private var slow : boolean;
+private var startPosY : float;
 
 private var playerStatus : playerStatusScript;
 
@@ -20,6 +20,8 @@ function Start(){
 
 	speed = 0;
 	slow = false;
+
+	startPosY = transform.position.y;
 }
 
 function FixedUpdate(){
@@ -30,22 +32,17 @@ function FixedUpdate(){
     }
 
 	GetComponent.<Rigidbody>().velocity.x = speed;
+	transform.position.y = startPosY;
 
 	// Follow Player
 	target = player.transform.position;
     enemy = transform.position;
     distance = enemy.x - target.x;
-    dir = enemy.y - target.y;
+    var step = 1.5 * Time.deltaTime;
 
-    //if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
-    //	transform.rotation.x = -dir/10;
-    //	transform.rotation.y = 0.75;
-    //	transform.rotation.z = 0;
-    //}else if(this.distance < 0){
-    //	transform.rotation.x = 0;
-    //	transform.rotation.y = 0.75;
-    //	transform.rotation.z = 0;
-    //}
+    if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
+    	transform.position = Vector3.MoveTowards(transform.position, target, step);
+    }
 }
 
 function slowDown(){
