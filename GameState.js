@@ -42,6 +42,10 @@ public class GameState extends MonoBehaviour {
 		totalGems ++;
 	}
 
+	public static function resetGems() {
+		totalGems = 0;
+	}
+
 	public static function getTotalGems() {
 		return totalGems;
 	}

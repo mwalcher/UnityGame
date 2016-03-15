@@ -80,11 +80,14 @@ function Start () {
     inventory["potion"] = false;
 
     numberOfLives = GameState.getTotalLives();
+    setLives();
+
+    fullHealth();
+
 	numberOfGems = GameState.getTotalGems();
+	setGems();
 
     powerUpContainer.color = emptyPowerUp;
-    mySlider.value = 100;
-    healthText.text = mySlider.value + " / " + totalHealth;
 }
 
 function Update () {
@@ -156,21 +159,24 @@ private function clearInventory() {
 	powerUpImage.color = clearPowerUp;
 }
 
+public function setGems() {
+    livesText.text = numberOfGems + " / " + totalNumberOfGems;
+    gemSlider.value = numberOfGems;
+}
+
 //increase gems by one, if at 50 add a life
 public function pickUpGem() {
 
 	GameState.newGem();
     numberOfGems = GameState.getTotalGems();
-    gemSlider.value++;
     
     if(numberOfGems == 50) {
-        numberOfGems = 0;
-        gemSlider.value = 0;
+        GameState.resetGems();
+        numberOfGems = GameState.getTotalGems();
         addLife();
     }
 
-    // update GUI text
-    livesText.text = numberOfGems + " / " + totalNumberOfGems;
+    setGems();
 }
 
 // decrease the slider value by the damage amount passed in, if slider value is zero, remove a life
@@ -189,6 +195,24 @@ public function takeDamage(damage : float) {
     }
 }
 
+public function setLives(){
+	heartImage1.color = deadLifeColour;
+    heartImage2.color = deadLifeColour;
+    heartImage3.color = deadLifeColour;
+
+    if(GameState.getTotalLives() >= 1){
+    	heartImage1.color = aliveLifeColour;
+    }
+
+    if(GameState.getTotalLives() >= 2){
+    	heartImage2.color = aliveLifeColour;
+    }
+
+    if(GameState.getTotalLives() >= 3){
+    	heartImage3.color = aliveLifeColour;
+    }
+}
+
     // increase number of lives by one
     // change the colour of the heart image on the GUI based on number of lives
 private function addLife() {
@@ -197,15 +221,7 @@ private function addLife() {
         GameState.gainLife();
         numberOfLives = GameState.getTotalLives();
 
-        if(numberOfLives==1){
-            heartImage1.color= aliveLifeColour;
-        }
-        else if(numberOfLives == 2) {
-            heartImage2.color = aliveLifeColour;
-        }
-        else if(numberOfLives == 3) {
-            heartImage3.color = aliveLifeColour;
-        }
+        setLives();
     }
 }
 
