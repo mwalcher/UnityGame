@@ -9,6 +9,7 @@ private var enemy : Vector3;
 public var distance : float;
 private var dir : float;
 private var speed : float;
+private var slow : boolean;
 
 private var playerStatus : playerStatusScript;
 
@@ -18,10 +19,16 @@ function Start(){
 	playerStatus = GameObject.FindGameObjectWithTag("GameController").GetComponent(playerStatusScript);
 
 	speed = 0;
+	slow = false;
 }
 
 function FixedUpdate(){
+
 	// Constant Horzontal Movement
+	if(this.distance < 50 && playerController.start && !slow){
+    	speed = -2;
+    }
+
 	GetComponent.<Rigidbody>().velocity.x = speed;
 
 	// Follow Player
@@ -29,10 +36,6 @@ function FixedUpdate(){
     enemy = transform.position;
     distance = enemy.x - target.x;
     dir = enemy.y - target.y;
-
-    if(this.distance < 50 && playerController.start){
-    	speed = -2;
-    }
 
     //if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
     //	transform.rotation.x = -dir/10;
@@ -46,10 +49,12 @@ function FixedUpdate(){
 }
 
 function slowDown(){
-	speed = -1;
+	slow = true;
+	speed = -0.5;
 }
 
 function returnSpeed(){
+	slow = false;
 	speed = -2;
 }
 
