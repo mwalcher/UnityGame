@@ -34,15 +34,15 @@ function FixedUpdate(){
     	speed = -2;
     }
 
-    if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
-    	transform.rotation.x = -dir/10;
-    	transform.rotation.y = 0.75;
-    	transform.rotation.z = 0;
-    }else if(this.distance < 0){
-    	transform.rotation.x = 0;
-    	transform.rotation.y = 0.75;
-    	transform.rotation.z = 0;
-    }
+    //if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
+    //	transform.rotation.x = -dir/10;
+    //	transform.rotation.y = 0.75;
+    //	transform.rotation.z = 0;
+    //}else if(this.distance < 0){
+    //	transform.rotation.x = 0;
+    //	transform.rotation.y = 0.75;
+    //	transform.rotation.z = 0;
+    //}
 }
 
 function slowDown(){

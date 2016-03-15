@@ -88,6 +88,7 @@ function Start () {
 }
 
 function Update () {
+
 	if(Input.GetButton("Fire1")){
 		if(inventory["shield"]){
 			shieldProtect();
@@ -107,6 +108,7 @@ function Update () {
 			clearInventory();
 		}
 	}
+
 }
 
 
@@ -156,7 +158,9 @@ private function clearInventory() {
 
 //increase gems by one, if at 50 add a life
 public function pickUpGem() {
-    numberOfGems++;
+
+	GameState.newGem();
+    numberOfGems = GameState.getTotalGems();
     gemSlider.value++;
     
     if(numberOfGems == 50) {
@@ -188,8 +192,11 @@ public function takeDamage(damage : float) {
     // increase number of lives by one
     // change the colour of the heart image on the GUI based on number of lives
 private function addLife() {
-    if(numberOfLives<3) {
-        numberOfLives++;
+    if(numberOfLives < 3) {
+
+        GameState.gainLife();
+        numberOfLives = GameState.getTotalLives();
+
         if(numberOfLives==1){
             heartImage1.color= aliveLifeColour;
         }
@@ -207,7 +214,9 @@ private function addLife() {
     // decrease number of lives
     // set slider value back to 100
 private function removeLife() {
-	numberOfLives--;
+
+	GameState.loseLife();
+	numberOfLives = GameState.getTotalLives();
 
     if(numberOfLives == 0) {
     	heartImage1.color = deadLifeColour;
@@ -256,8 +265,8 @@ private function bombEnemies(){
 	
 	directionalLight.intensity = defaultIntensity;
 
-	Debug.Log(directionalLight.intensity);
-;	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
+	//Debug.Log(directionalLight.intensity);	
+	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
 		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=50) {
 			flyEnemy.GetComponent(flyingEnemyController).Die();
 		}

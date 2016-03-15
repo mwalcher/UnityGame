@@ -100,8 +100,15 @@ function OnTriggerEnter(other:Collider){
 	//Ring Pickup
 	if(other.tag == "ring"){
 		Destroy(other.gameObject);
-		Application.LoadLevel("congrats");
-		Debug.Log("Ring collected");
+		GameState.newRing(GameState.getCurLevel());
+
+		if(GameState.getTerraRing() && GameState.getPolarisRing() && GameState.getVulcanRing()){
+			Application.LoadLevel("Success");
+		}else{
+			Application.LoadLevel("congrats");
+		}
+
+		//Debug.Log(GameState.getCurLevel() + " Ring collected");
 	}
 
 	//Terrain Collider
