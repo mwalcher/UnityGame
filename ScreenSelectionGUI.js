@@ -38,6 +38,8 @@ function Start () {
     myCamera = GetComponent.<Camera>().main;
     originalCameraPosition = myCamera.transform.rotation;
 
+    activeSection = null;
+
     terraCanvas.enabled = false;
     polarisCanvas.enabled = false;
     vulcanCanvas.enabled = false;
@@ -126,7 +128,7 @@ function Update () {
                 shouldReturnToOrigin = false;
                 targetChar = hit.transform;
                 vulcanCanvas.enabled = true;
-                activeSection = "Vulcan";
+                activeSection = "Hestia";
             }
 
             if (hit.transform.gameObject.name=="Aurora" && !GameState.getPolarisRing()) {
@@ -136,7 +138,7 @@ function Update () {
                 shouldReturnToOrigin = false;
                 targetChar = hit.transform;
                 polarisCanvas.enabled = true;
-                activeSection = "Polaris";
+                activeSection = "Aurora";
             }
 
             if (hit.transform.gameObject.name=="Flora" && !GameState.getTerraRing()) {
@@ -146,7 +148,7 @@ function Update () {
                 shouldReturnToOrigin = false;
                 targetChar = hit.transform;
                 terraCanvas.enabled = true;
-                activeSection = "Terra";
+                activeSection = "Flora";
             }
              //Debug.Log( hit.transform.gameObject.name );
          }

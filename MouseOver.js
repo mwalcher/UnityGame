@@ -14,7 +14,7 @@ function Start () {
 }
 
 function OnMouseEnter() {
-	if(!ScreenSelectionGUI.isActive()){
+	if(!ScreenSelectionGUI.isActive() || ScreenSelectionGUI.isActive() == this.name){
 		myText.color = new Color(255,255,255,1);
 		lightObj.enabled = true;
 	}
