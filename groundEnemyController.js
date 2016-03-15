@@ -36,10 +36,10 @@ function FixedUpdate(){
     enemy = transform.position;
     distance = enemy.x - target.x;
 
-    if(this.distance < 10 && this.distance > 0 && trigger && !playerStatus.isFocused()){
+    if(this.distance < 20 && this.distance > -5 && trigger && !playerStatus.isFocused()){
     	Attack();
     	//Debug.Log("Attack");
-    }else if(this.distance < 0 && !idle){
+    }else if(this.distance < -5 && !idle){
     	Idle();
     	//Debug.Log("Idle");
     }
