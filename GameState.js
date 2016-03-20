@@ -111,12 +111,19 @@ public class GameState extends MonoBehaviour {
 		return check2;
 	}
 
+	public static function clearCheckpoints() {
+		check1 = false;
+		check2 = false;
+	}
+
 	public static function clearData() {
 		playerLives = 3;
 		totalGems = 0;
 		earthRing = false;
 		iceRing = false;
 		fireRing = false;
+		startPos = Vector3.zero;
+		clearCheckpoints();
 	}
 
 }

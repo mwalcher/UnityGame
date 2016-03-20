@@ -29,6 +29,12 @@ public var bombTexture : UnityEngine.Texture;
 public var shieldTexture : UnityEngine.Texture;
 public var hourglassTexture : UnityEngine.Texture;
 
+// checkpoint references
+public var checkpoint1 : UnityEngine.UI.RawImage;
+public var checkpoint2 : UnityEngine.UI.RawImage;
+public var emptyCheckpoint : UnityEngine.Texture;
+public var fullCheckpoint : UnityEngine.Texture;
+
 // inventory references
 private var numberOfLives : int;
 private var numberOfGems : int;
@@ -117,6 +123,18 @@ function Update () {
 			inventory["potion"] = false;
 			clearInventory();
 		}
+	}
+
+	if(GameState.getCheck1()){
+		checkpoint1.texture = fullCheckpoint;
+	}else{
+		checkpoint1.texture = emptyCheckpoint;
+	}
+
+	if(GameState.getCheck2()){
+		checkpoint2.texture = fullCheckpoint;
+	}else{
+		checkpoint2.texture = emptyCheckpoint;
 	}
 
 }
@@ -253,7 +271,7 @@ private function removeLife() {
 }
 
 private function gameOver() {
-    Debug.Log("GameOver");
+	Application.LoadLevel("GameOver");
 }
 
 // Item Functions
