@@ -13,9 +13,9 @@ function Update(){
     flag = transform.position;
 
     if(gameObject.name == "Checkpoint1" && target.x >= flag.x && !GameState.getCheck1()){
-    	GameState.setCheck1(target);
+    	GameState.setCheck1(target,GameState.getTotalGems());
     }else if(gameObject.name == "Checkpoint2" && target.x >= flag.x && !GameState.getCheck2()){
-    	GameState.setCheck2(target);
+    	GameState.setCheck2(target,GameState.getTotalGems());
     }
 
 }

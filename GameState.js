@@ -5,6 +5,7 @@ public class GameState extends MonoBehaviour {
 	public static var gameState : GameState;
 	public static var playerLives : int;
 	public static var totalGems : int;
+	public static var lastGemCount : int;
 	public static var currentLevel : String;
 	public static var earthRing : boolean;
 	public static var iceRing : boolean;
@@ -37,6 +38,7 @@ public class GameState extends MonoBehaviour {
 
 	public static function loseLife() {
 		playerLives--;
+		totalGems = lastGemCount;
 	}
 
 	public static function getTotalLives() {
@@ -49,6 +51,10 @@ public class GameState extends MonoBehaviour {
 
 	public static function resetGems() {
 		totalGems = 0;
+	}
+
+	public static function setLastGemCount() {
+		lastGemCount = totalGems;
 	}
 
 	public static function getTotalGems() {
@@ -93,14 +99,16 @@ public class GameState extends MonoBehaviour {
 		return startPos;
 	}
 
-	public static function setCheck1(position : Vector3) {
+	public static function setCheck1(position : Vector3, gems : int) {
 		check1 = true;
 		startPos = position;
+		lastGemCount = gems;
 	}
 
-	public static function setCheck2(position : Vector3) {
+	public static function setCheck2(position : Vector3, gems : int) {
 		check2 = true;
 		startPos = position;
+		lastGemCount = gems;
 	}
 
 	public static function getCheck1() {
@@ -119,6 +127,7 @@ public class GameState extends MonoBehaviour {
 	public static function clearData() {
 		playerLives = 3;
 		totalGems = 0;
+		lastGemCount = 0;
 		earthRing = false;
 		iceRing = false;
 		fireRing = false;

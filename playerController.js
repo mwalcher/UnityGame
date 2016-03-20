@@ -107,6 +107,7 @@ function OnTriggerEnter(other:Collider){
 		}else{
 			GameState.clearCheckpoints();
 			GameState.setStartPos(Vector3.zero);
+			GameState.setLastGemCount();
 			Application.LoadLevel("congrats");
 		}
 
