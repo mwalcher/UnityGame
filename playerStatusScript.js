@@ -73,6 +73,13 @@ function Start () {
 		anim = GameObject.Find("Hestia").GetComponent("Animator");
 	}
 
+	// Set Start Position
+	if(GameState.getStartPos() == Vector3.zero){
+		GameState.setStartPos(playerHolder.transform.position);
+	}else{
+		playerHolder.transform.position = GameState.getStartPos();
+	}
+
 	//setting powerup values to false
     inventory["shield"] = false;
     inventory["hourglass"] = false;
@@ -234,17 +241,13 @@ private function removeLife() {
 	GameState.loseLife();
 	numberOfLives = GameState.getTotalLives();
 
-    if(numberOfLives == 0) {
+	if(numberOfLives == 0) {
     	heartImage1.color = deadLifeColour;
     	anim.Play("Die", -1, 0.0f);
     	yield WaitForSeconds(1);
         gameOver();
-    } else if(numberOfLives == 1) {
-        heartImage2.color = deadLifeColour;
-        fullHealth();
-    } else if(numberOfLives == 2) {
-        heartImage3.color = deadLifeColour;
-        fullHealth();
+    }else{
+    	Application.LoadLevel(GameState.getCurLevel());
     }
 
 }

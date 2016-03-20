@@ -9,6 +9,9 @@ public class GameState extends MonoBehaviour {
 	public static var earthRing : boolean;
 	public static var iceRing : boolean;
 	public static var fireRing : boolean;
+	public static var check1 : boolean;
+	public static var check2 : boolean;
+	public static var startPos : Vector3;
 
 	function Awake() {
 		//Debug.Log("Creating game state manager");
@@ -21,6 +24,8 @@ public class GameState extends MonoBehaviour {
 			earthRing = false;
 			iceRing = false;
 			fireRing = false;
+			check1 = false;
+			check2 = false;
 		}else{
 			Destroy(gameObject);
 		}
@@ -78,6 +83,32 @@ public class GameState extends MonoBehaviour {
 
 	public static function getVulcanRing() {
 		return fireRing;
+	}
+
+	public static function setStartPos(position : Vector3) {
+		startPos = position;
+	}
+
+	public static function getStartPos() {
+		return startPos;
+	}
+
+	public static function setCheck1(position : Vector3) {
+		check1 = true;
+		startPos = position;
+	}
+
+	public static function setCheck2(position : Vector3) {
+		check2 = true;
+		startPos = position;
+	}
+
+	public static function getCheck1() {
+		return check1;
+	}
+
+	public static function getCheck2() {
+		return check2;
 	}
 
 	public static function clearData() {
