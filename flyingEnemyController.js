@@ -6,6 +6,7 @@ var anim: Animator;
 private var player : GameObject;
 private var target : Vector3;
 private var enemy : Vector3;
+private var enemy2 : Vector3;
 public var distance : float;
 private var speed : float;
 private var slow : boolean;
@@ -32,7 +33,6 @@ function FixedUpdate(){
     }
 
 	GetComponent.<Rigidbody>().velocity.x = speed;
-	transform.position.y = startPosY;
 
 	// Follow Player
 	target = player.transform.position;
@@ -42,6 +42,11 @@ function FixedUpdate(){
 
     if(this.distance < 20 && this.distance > 0 && !playerStatus.isFocused()){
     	transform.position = Vector3.MoveTowards(transform.position, target, step);
+    }else if(this.distance < 0 && this.distance > -10 && !playerStatus.isFocused()){
+    	enemy2 = Vector3(transform.position.x, startPosY, 0);
+    	transform.position = Vector3.MoveTowards(transform.position, enemy2, step);
+    }else{
+    	transform.position.y = startPosY;
     }
 }
 

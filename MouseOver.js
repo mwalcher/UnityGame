@@ -24,5 +24,6 @@ function OnMouseExit() {
 	if(!ScreenSelectionGUI.isActive()){
 		lightObj.enabled = false;
 		myText.color = startingColor;
+		//Debug.Log(myText);
 	}
 }

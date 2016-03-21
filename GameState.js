@@ -55,7 +55,6 @@ public class GameState extends MonoBehaviour {
 
 	public static function setLastGemCount() {
 		lastGemCount = totalGems;
-		Debug.Log("set last gem count" + lastGemCount);
 	}
 
 	public static function getTotalGems() {
