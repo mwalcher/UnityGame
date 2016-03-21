@@ -105,9 +105,6 @@ function OnTriggerEnter(other:Collider){
 		if(GameState.getTerraRing() && GameState.getPolarisRing() && GameState.getVulcanRing()){
 			Application.LoadLevel("Success");
 		}else{
-			GameState.clearCheckpoints();
-			GameState.setStartPos(Vector3.zero);
-			GameState.setLastGemCount();
 			Application.LoadLevel("congrats");
 		}
 

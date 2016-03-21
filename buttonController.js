@@ -3,6 +3,9 @@
 
 //loading character selection button
 function pickCharacter(){
+	GameState.clearCheckpoints();
+	GameState.setStartPos(Vector3.zero);
+	GameState.setLastGemCount();
 	Application.LoadLevel("characterSelection");
 }
 
