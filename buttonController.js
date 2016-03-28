@@ -14,3 +14,7 @@ function playAgain(){
 	GameState.clearData();
 	Application.LoadLevel("characterSelection");
 }
+
+function quitGame() {
+	Application.Quit();
+}

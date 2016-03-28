@@ -32,6 +32,14 @@ public class GameState extends MonoBehaviour {
 		}
 	}
 
+	function Update () {
+		if (Input.GetKey ("escape")) {
+			Application.Quit();
+		}
+	}
+
+
+
 	public static function gainLife() {
 		playerLives++;
 	}
