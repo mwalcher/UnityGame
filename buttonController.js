@@ -18,3 +18,7 @@ function playAgain(){
 function quitGame() {
 	Application.Quit();
 }
+
+function loadStory() {
+	Application.LoadLevel('Story');
+}
