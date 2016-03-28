@@ -260,9 +260,13 @@ private function removeLife() {
 	numberOfLives = GameState.getTotalLives();
 
 	if(numberOfLives == 0) {
+		Debug.Log('Dead');
     	heartImage1.color = deadLifeColour;
+    	Debug.Log('About to Play Animation');
     	anim.Play("Die", -1, 0.0f);
-    	yield WaitForSeconds(1);
+    	Debug.Log('About to wait for a second');
+    	// yield WaitForSeconds(1);
+    	Debug.Log('About to call gameOver');
         gameOver();
     }else{
     	Application.LoadLevel(GameState.getCurLevel());
@@ -271,7 +275,7 @@ private function removeLife() {
 }
 
 private function gameOver() {
-	Application.LoadLevel("GameOver");
+	Application.LoadLevel("Lose");
 }
 
 // Item Functions

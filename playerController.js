@@ -103,7 +103,7 @@ function OnTriggerEnter(other:Collider){
 		GameState.newRing(GameState.getCurLevel());
 
 		if(GameState.getTerraRing() && GameState.getPolarisRing() && GameState.getVulcanRing()){
-			Application.LoadLevel("Success");
+			Application.LoadLevel("Win");
 		}else{
 			Application.LoadLevel("congrats");
 		}
