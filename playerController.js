@@ -2,6 +2,8 @@
 
 import System.Collections.Generic;
 
+public var successFlashMessage : GameObject;
+
 private var speed : float;
 private var flyHeight : float = 3;
 private var gravity : float;
@@ -19,6 +21,7 @@ function Start() {
     speed = 0;
     gravity = 0;
     start = false;
+    successFlashMessage.SetActive(false);
 }
 
 function FixedUpdate(){
@@ -101,11 +104,16 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "ring"){
 		Destroy(other.gameObject);
 		GameState.newRing(GameState.getCurLevel());
+		speed = 0;
+		successFlashMessage.SetActive(true);
+		yield WaitForSeconds(2);
+
 
 		if(GameState.getTerraRing() && GameState.getPolarisRing() && GameState.getVulcanRing()){
+
 			Application.LoadLevel("Win");
 		}else{
-			Application.LoadLevel("congrats");
+			Application.LoadLevel("characterSelection");
 		}
 
 		//Debug.Log(GameState.getCurLevel() + " Ring collected");
