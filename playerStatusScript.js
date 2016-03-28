@@ -1,6 +1,7 @@
 ﻿#pragma strict
 
 import UnityEngine.UI;
+public var loseLifeOverlay : GameObject;
 
 // animator
 private var anim: Animator;
@@ -69,7 +70,10 @@ public var regularTexture : Texture;
 private var flyScript : flyingEnemyController;
 private var grdScript : groundEnemyController;
 
+private var playerControllerScript : playerController;
+
 function Start () {
+	loseLifeOverlay.SetActive(false);
 
 	if(GameState.getCurLevel() == "Terra"){
 		anim = GameObject.Find("Flora").GetComponent("Animator");
@@ -78,6 +82,8 @@ function Start () {
 	}else if(GameState.getCurLevel() == "Vulcan"){
 		anim = GameObject.Find("Hestia").GetComponent("Animator");
 	}
+
+	playerControllerScript = GameObject.Find("Player").GetComponent("playerController");
 
 	// Set Start Position
 	if(GameState.getStartPos() == Vector3.zero){
@@ -255,6 +261,7 @@ private function addLife() {
     // decrease number of lives
     // set slider value back to 100
 private function removeLife() {
+	playerControllerScript.setDead(true);
 
 	GameState.loseLife();
 	numberOfLives = GameState.getTotalLives();
@@ -265,10 +272,13 @@ private function removeLife() {
     	Debug.Log('About to Play Animation');
     	anim.Play("Die", -1, 0.0f);
     	Debug.Log('About to wait for a second');
-    	// yield WaitForSeconds(1);
+    	yield WaitForSeconds(1);
     	Debug.Log('About to call gameOver');
         gameOver();
     }else{
+		loseLifeOverlay.SetActive(true);
+		yield WaitForSeconds(2);
+		loseLifeOverlay.SetActive(false);
     	Application.LoadLevel(GameState.getCurLevel());
     }
 

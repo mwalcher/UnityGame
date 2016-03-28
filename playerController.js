@@ -8,6 +8,7 @@ private var speed : float;
 private var flyHeight : float = 3;
 private var gravity : float;
 public static var start : boolean;
+public static var dead : boolean;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
@@ -21,7 +22,15 @@ function Start() {
     speed = 0;
     gravity = 0;
     start = false;
+    dead = false;
     successFlashMessage.SetActive(false);
+}
+
+function setDead(value : boolean) {
+	dead = value;
+	speed = 0;
+	gravity = 0;
+	Debug.Log("DEAD IS " + dead);
 }
 
 function FixedUpdate(){
@@ -34,24 +43,26 @@ function FixedUpdate(){
 	// Apply New Gravity
 	GetComponent.<Rigidbody>().AddForce(new Vector3(0,-gravity*GetComponent.<Rigidbody>().mass,0));
 	
-	// Handle Flying
-	if(Input.GetButton("Jump")){
-		if(!start){
+	if(!dead) {
+		// Handle Flying
+		if(Input.GetButton("Jump")){
+			if(!start){
 
-			if(GameState.getCurLevel() == "Terra"){
-				speed = 4;
-			}else if(GameState.getCurLevel() == "Polaris"){
-				speed = 5;
-			}else if(GameState.getCurLevel() == "Vulcan"){
-				speed = 6;
-			}else{
-				speed = 4;
+				if(GameState.getCurLevel() == "Terra"){
+					speed = 4;
+				}else if(GameState.getCurLevel() == "Polaris"){
+					speed = 5;
+				}else if(GameState.getCurLevel() == "Vulcan"){
+					speed = 6;
+				}else{
+					speed = 4;
+				}
+
+				gravity = 8;
+				start = true;
 			}
-
-			gravity = 8;
-			start = true;
+			GetComponent.<Rigidbody>().velocity.y = flyHeight;
 		}
-		GetComponent.<Rigidbody>().velocity.y = flyHeight;
 	}
 }
 
