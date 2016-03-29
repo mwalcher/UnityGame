@@ -99,24 +99,26 @@ function Update () {
     }
 
     if(Input.GetMouseButtonDown(1)) {
-        shouldReturnToOrigin = true;
-        shouldZoom = false;
-        terraCanvas.enabled = false;
-        polarisCanvas.enabled = false;
-        vulcanCanvas.enabled = false;
-        activeSection = null;
-
-    //fade out
-  //        var graphics2 : Graphic[] = fadePanel.GetComponentsInChildren.<Graphic>();
-        // for (var graphic2: Graphic in graphics2) {
-    //      graphic2.CrossFadeAlpha(1f,0.5f,true);
-        // }        
-
+        returnMain();
     }
 
     if( Input.GetMouseButtonDown(0) ) {
-        
-        var ray: Ray = myCamera.ScreenPointToRay(Input.mousePosition);
+    	selectCharacter();
+     }
+
+ }
+
+public function returnMain() {
+	shouldReturnToOrigin = true;
+    shouldZoom = false;
+    terraCanvas.enabled = false;
+    polarisCanvas.enabled = false;
+    vulcanCanvas.enabled = false;
+    activeSection = null;
+}
+
+public function selectCharacter() {
+	var ray: Ray = myCamera.ScreenPointToRay(Input.mousePosition);
         var hit : RaycastHit;
          
          if( Physics.Raycast( ray, hit, 100 ) ) {
@@ -152,9 +154,7 @@ function Update () {
             }
              //Debug.Log( hit.transform.gameObject.name );
          }
-     }
-
- }
+}
 
 public function loadLevel(levelName : String) {
     // SceneManager.LoadScene(levelName);
