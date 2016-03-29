@@ -119,11 +119,12 @@ function OnTriggerEnter(other:Collider){
 		successFlashMessage.SetActive(true);
 		yield WaitForSeconds(2);
 
-
 		if(GameState.getTerraRing() && GameState.getPolarisRing() && GameState.getVulcanRing()){
-
 			Application.LoadLevel("Win");
 		}else{
+			GameState.clearCheckpoints();
+			GameState.setStartPos(Vector3.zero);
+			GameState.setLastGemCount();
 			Application.LoadLevel("characterSelection");
 		}
 
