@@ -24,6 +24,7 @@ public var livesText : UnityEngine.UI.Text;
 // powerup images and texture references
 public var powerUpContainer : UnityEngine.UI.RawImage;
 public var powerUpImage : UnityEngine.UI.RawImage;
+public var powerUpDescription: UnityEngine.UI.Text;
 
 public var potionTexture : UnityEngine.Texture;
 public var bombTexture : UnityEngine.Texture;
@@ -97,6 +98,7 @@ function Start () {
     inventory["hourglass"] = false;
     inventory["bomb"] = false;
     inventory["potion"] = false;
+    powerUpDescription.text = "Powerup inventory is empty!";
 
     numberOfLives = GameState.getTotalLives();
     setLives();
@@ -112,6 +114,7 @@ function Start () {
 function Update () {
 
 	if(Input.GetButton("Fire1")){
+		powerUpDescription.text = "Powerup inventory is empty!";
 		if(inventory["shield"]){
 			shieldProtect();
 			inventory["shield"] = false;
@@ -162,19 +165,23 @@ public function addToInventory(object : String) {
 	    if(object == "potion") {
 	        powerUpImage.texture = potionTexture;
 	        powerUpImage.color = fullPowerUp;
+	        powerUpDescription.text = "Drink this potion to become invisible for 10 seconds";
 	    }
 
 	    else if(object == "bomb") {
 	        powerUpImage.texture = bombTexture;
 	        powerUpImage.color = fullPowerUp;
+	        powerUpDescription.text = "Clear the way by bombing enemies who are close!";
 	    }
 	    else if(object == "shield") {
 	        powerUpImage.texture = shieldTexture;
 	        powerUpImage.color = fullPowerUp;
+	        powerUpDescription.text = "Enable a shield that protects you from a hit!";
 	    }
 	    else if(object == "hourglass") {
 	        powerUpImage.texture = hourglassTexture;
 	        powerUpImage.color = fullPowerUp;
+	        powerUpDescription.text = "Slow down your enemies so you have more time to dodge them!";
 	    }
 	        
 	    // set inventory object to true
