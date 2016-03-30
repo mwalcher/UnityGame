@@ -320,6 +320,10 @@ private function bombEnemies(){
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
 		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=50) {
 			flyEnemy.GetComponent(flyingEnemyController).Die();
+			var colChildren = flyEnemy.GetComponentsInChildren(Collider);
+			 for (var collider : Collider in colChildren) {  
+			 	collider.enabled = false;
+			 }			
 		}
     }
 
