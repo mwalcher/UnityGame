@@ -323,9 +323,9 @@ private function bombEnemies(){
 		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=50) {
 			flyEnemy.GetComponent(flyingEnemyController).Die();
 			var colChildren = flyEnemy.GetComponentsInChildren(Collider);
-			 for (var collider : Collider in colChildren) {  
+			for (var collider : Collider in colChildren) {  
 			 	collider.enabled = false;
-			 }			
+			}			
 		}
     }
 
@@ -340,7 +340,9 @@ private function hourglassActive(){
 	//Debug.Log("Hourglass Active");
 	focused = true;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
-        flyEnemy.GetComponent(flyingEnemyController).slowDown();
+		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=30) {
+        	flyEnemy.GetComponent(flyingEnemyController).slowDown();
+        }
     }
 	Invoke("hourglassEnd", 10);
 }
