@@ -40,7 +40,7 @@ function FixedUpdate(){
     distance = enemy.x - target.x;
     var step = 1.5 * Time.deltaTime;
 
-    if(this.distance < 10 && this.distance > 0 && !playerStatus.isFocused()){
+    if(this.distance < 10 && this.distance > 0 && !playerStatus.isFocused() && playerController.start){
     	transform.position = Vector3.MoveTowards(transform.position, target, step);
     }else if(this.distance < 0 && this.distance > -10 && !playerStatus.isFocused()){
     	enemy2 = Vector3(transform.position.x, startPosY, 0);
