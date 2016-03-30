@@ -291,11 +291,13 @@ private function gameOver() {
 // Item Functions
 
 private function shieldProtect(){
-	var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
-	player.transform.parent = playerHolder.transform;
-	player.transform.localPosition = new Vector3(0,1,0);
-	invincible = true;
-	shieldActive = true;
+	if(!shieldActive) {
+		var player : GameObject = Instantiate(Resources.Load("shieldBubble")) as GameObject;
+		player.transform.parent = playerHolder.transform;
+		player.transform.localPosition = new Vector3(0,1,0);
+		invincible = true;
+		shieldActive = true;
+	}
 }
 
 public function shieldBreak(){
