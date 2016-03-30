@@ -1,7 +1,8 @@
 ﻿#pragma strict
 
-// import UnityEngine.SceneManagement;
-// using UnityEngine.SceneManagement;
+import UnityEngine.SceneManagement;
+import UnityEngine.EventSystems;
+//using UnityEngine.SceneManagement;
 
 
 private var myCamera : Camera;
@@ -20,6 +21,8 @@ public static var activeSection : String;
 public var terraCanvas : Canvas;
 public var polarisCanvas : Canvas;
 public var vulcanCanvas : Canvas;
+
+public var terraButton : UnityEngine.UI.Button;
 
 public var terraRing : Graphic;
 public var polarisRing : Graphic;
@@ -102,13 +105,14 @@ function Update () {
         returnMain();
     }
 
-    if( Input.GetMouseButtonDown(0) ) {
+    if( Input.GetMouseButtonDown(0)) {
     	selectCharacter();
      }
 
  }
 
 public function returnMain() {
+	//Debug.Log("Cancel");
 	shouldReturnToOrigin = true;
     shouldZoom = false;
     terraCanvas.enabled = false;
@@ -118,6 +122,8 @@ public function returnMain() {
 }
 
 public function selectCharacter() {
+	//Debug.Log("Submit");
+	//Debug.Log(EventSystem.current.currentSelectedGameObject.name);
 	var ray: Ray = myCamera.ScreenPointToRay(Input.mousePosition);
         var hit : RaycastHit;
          
@@ -151,15 +157,27 @@ public function selectCharacter() {
                 targetChar = hit.transform;
                 terraCanvas.enabled = true;
                 activeSection = "Flora";
+                //Debug.Log(hit);
             }
              //Debug.Log( hit.transform.gameObject.name );
+         }else if(EventSystem.current.currentSelectedGameObject.name == "Flora"){
+         		pushRight = -10;
+                targetFOV = 30;
+                shouldZoom = true;
+                shouldReturnToOrigin = false;
+                targetChar = EventSystem.current.currentSelectedGameObject.transform;
+                terraCanvas.enabled = true;
+                terraButton.Select();
+                //EventSystem.SetSelectedGameObject(terraButton);
+                activeSection = "Flora";
+         		//Debug.Log(EventSystem.current.currentSelectedGameObject.transform);
          }
 }
 
 public function loadLevel(levelName : String) {
-    // SceneManager.LoadScene(levelName);
     GameState.curLevel(levelName);
-    Application.LoadLevel(levelName);
+    //Application.LoadLevel(levelName);
+    SceneManager.LoadScene(levelName);
 }
 
 public static function isActive() {

@@ -30,7 +30,7 @@ function setDead(value : boolean) {
 	dead = value;
 	speed = 0;
 	gravity = 0;
-	Debug.Log("DEAD IS " + dead);
+	//Debug.Log("DEAD IS " + dead);
 }
 
 function FixedUpdate(){
