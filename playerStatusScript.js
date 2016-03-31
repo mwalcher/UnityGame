@@ -18,6 +18,10 @@ public var gemSlider : UnityEngine.UI.Slider;
 public var heartImage1 : UnityEngine.UI.RawImage;
 public var heartImage2 : UnityEngine.UI.RawImage;
 public var heartImage3 : UnityEngine.UI.RawImage;
+public var heartImage4 : UnityEngine.UI.RawImage;
+private var heartsContainer : Transform;
+heartsContainer = GameObject.Find('HeartsContainer').transform;
+private var initialHeartsPosition : float;
 public var healthText : UnityEngine.UI.Text;
 public var livesText : UnityEngine.UI.Text;
 
@@ -74,7 +78,15 @@ private var grdScript : groundEnemyController;
 private var playerControllerScript : playerController;
 
 function Start () {
+
+	// heartsContainer = GameObject.Find('HeartsContainer').transform;
+	var initialHeartsPosition = heartsContainer.position.x;
+
+	// heartsContainer.position.x = initialHeartsPosition-50;
+
+	// Debug.Log(move.position);
 	loseLifeOverlay.SetActive(false);
+	heartImage4.enabled=false;
 
 	if(GameState.getCurLevel() == "Terra"){
 		anim = GameObject.Find("Flora").GetComponent("Animator");
@@ -112,6 +124,7 @@ function Start () {
 }
 
 function Update () {
+	// Debug.Log(heartImage1.transform.position);
 
 	if(Input.GetButton("Fire1")){
 		powerUpDescription.text = "Powerup inventory is empty!";
@@ -234,6 +247,7 @@ public function takeDamage(damage : float) {
 }
 
 public function setLives(){
+	Debug.Log(GameState.getTotalLives());
 	heartImage1.color = deadLifeColour;
     heartImage2.color = deadLifeColour;
     heartImage3.color = deadLifeColour;
@@ -254,7 +268,11 @@ public function setLives(){
     // increase number of lives by one
     // change the colour of the heart image on the GUI based on number of lives
 private function addLife() {
-    if(numberOfLives < 3) {
+    if(numberOfLives < 4) {
+    	if(numberOfLives ==3) {
+    		// heartsContainer.position.x = initialHeartsPosition-50;
+    		heartImage4.enabled = true;
+    	}
 
         GameState.gainLife();
         numberOfLives = GameState.getTotalLives();
@@ -273,6 +291,11 @@ private function removeLife() {
 	GameState.loseLife();
 	numberOfLives = GameState.getTotalLives();
 
+	if(numberOfLives == 3) {
+		heartImage4.enabled = false;
+		// heartsContainer.position.x = initialHeartsPosition;
+	}
+
 	if(numberOfLives == 0) {
 		Debug.Log('Dead');
     	heartImage1.color = deadLifeColour;
@@ -282,8 +305,10 @@ private function removeLife() {
     	yield WaitForSeconds(1);
     	Debug.Log('About to call gameOver');
         gameOver();
-    }else{
+    }
+    else{
 		loseLifeOverlay.SetActive(true);
+		invincible = true;
 		yield WaitForSeconds(2);
 		loseLifeOverlay.SetActive(false);
     	Application.LoadLevel(GameState.getCurLevel());

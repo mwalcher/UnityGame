@@ -56,8 +56,10 @@ function slowDown(){
 }
 
 function returnSpeed(){
-	slow = false;
-	speed = -2;
+	if(slow) {
+		slow = false;
+		speed = -2;
+	}
 }
 
 function Die(){
