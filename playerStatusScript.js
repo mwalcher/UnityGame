@@ -247,7 +247,7 @@ public function takeDamage(damage : float) {
 }
 
 public function setLives(){
-	Debug.Log(GameState.getTotalLives());
+	//Debug.Log(GameState.getTotalLives());
 	heartImage1.color = deadLifeColour;
     heartImage2.color = deadLifeColour;
     heartImage3.color = deadLifeColour;

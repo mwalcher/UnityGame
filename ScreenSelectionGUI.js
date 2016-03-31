@@ -18,11 +18,21 @@ private var shouldZoom = false;
 private var shouldReturnToOrigin = false;
 public static var activeSection : String;
 
+public var flora : GameObject;
+public var aurora : GameObject;
+public var hestia : GameObject;
+
 public var terraCanvas : Canvas;
 public var polarisCanvas : Canvas;
 public var vulcanCanvas : Canvas;
 
 public var terraButton : UnityEngine.UI.Button;
+public var polarisButton : UnityEngine.UI.Button;
+public var vulcanButton : UnityEngine.UI.Button;
+
+public var terraText : UnityEngine.UI.Text;
+public var polarisText : UnityEngine.UI.Text;
+public var vulcanText : UnityEngine.UI.Text;
 
 public var terraRing : Graphic;
 public var polarisRing : Graphic;
@@ -46,6 +56,10 @@ function Start () {
     terraCanvas.enabled = false;
     polarisCanvas.enabled = false;
     vulcanCanvas.enabled = false;
+
+    terraText.enabled = false;
+    polarisText.enabled = false;
+    vulcanText.enabled = false;
 
     terraRing.enabled = false;
     polarisRing.enabled = false;
@@ -74,14 +88,17 @@ function Update () {
 
 	if(GameState.getTerraRing()){
 		terraRing.enabled = true;
+		terraText.enabled = true;
 	}
 
 	if(GameState.getPolarisRing()){
 		polarisRing.enabled = true;
+		polarisText.enabled = true;
 	}
 
 	if(GameState.getVulcanRing()){
 		vulcanRing.enabled = true;
+		vulcanText.enabled = true;
 	}
 
     if(shouldZoom) {
@@ -105,7 +122,7 @@ function Update () {
         returnMain();
     }
 
-    if( Input.GetMouseButtonDown(0)) {
+    if(Input.GetMouseButtonDown(0)) {
     	selectCharacter();
      }
 
@@ -118,6 +135,15 @@ public function returnMain() {
     terraCanvas.enabled = false;
     polarisCanvas.enabled = false;
     vulcanCanvas.enabled = false;
+
+    if(activeSection == "Flora"){
+    	EventSystem.current.SetSelectedGameObject(flora);
+    }else if(activeSection == "Aurora"){
+    	EventSystem.current.SetSelectedGameObject(aurora);
+    }else if(activeSection == "Hestia"){
+    	EventSystem.current.SetSelectedGameObject(hestia);
+    }
+
     activeSection = null;
 }
 
@@ -167,10 +193,38 @@ public function selectCharacter() {
                 shouldReturnToOrigin = false;
                 targetChar = EventSystem.current.currentSelectedGameObject.transform;
                 terraCanvas.enabled = true;
-                terraButton.Select();
-                //EventSystem.SetSelectedGameObject(terraButton);
                 activeSection = "Flora";
-         		//Debug.Log(EventSystem.current.currentSelectedGameObject.transform);
+                if(!GameState.getTerraRing()){
+					terraButton.Select();
+				}else{
+					terraButton.enabled = false;
+				}
+         }else if(EventSystem.current.currentSelectedGameObject.name == "Aurora"){
+         		pushRight = -5;
+                targetFOV = 20;
+                shouldZoom = true;
+                shouldReturnToOrigin = false;
+                targetChar = EventSystem.current.currentSelectedGameObject.transform;
+                polarisCanvas.enabled = true;
+                activeSection = "Aurora";
+                if(!GameState.getPolarisRing()){
+					polarisButton.Select();
+				}else{
+					polarisButton.enabled = false;
+				}
+         }else if(EventSystem.current.currentSelectedGameObject.name == "Hestia"){
+         		pushRight = 10;
+                targetFOV = 30;
+                shouldZoom = true;
+                shouldReturnToOrigin = false;
+                targetChar = EventSystem.current.currentSelectedGameObject.transform;
+                vulcanCanvas.enabled = true;
+                activeSection = "Hestia";
+                if(!GameState.getVulcanRing()){
+					vulcanButton.Select();
+				}else{
+					vulcanButton.enabled = false;
+				}
          }
 }
 

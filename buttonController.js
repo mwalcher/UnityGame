@@ -1,24 +1,33 @@
 ﻿#pragma strict
 
+import UnityEngine.SceneManagement;
 
 //loading character selection button
 function pickCharacter(){
 	GameState.clearCheckpoints();
 	GameState.setStartPos(Vector3.zero);
 	GameState.setLastGemCount();
-	Application.LoadLevel("characterSelection");
+	SceneManager.LoadScene("characterSelection");
+	//Application.LoadLevel("characterSelection");
 }
 
 function playAgain(){
 	//Debug.Log("Clear Game State");
 	GameState.clearData();
-	Application.LoadLevel("characterSelection");
+	SceneManager.LoadScene("characterSelection");
+	//Application.LoadLevel("characterSelection");
 }
 
 function quitGame() {
 	Application.Quit();
 }
 
+function loadMenu() {
+	SceneManager.LoadScene("Welcome");
+	//Application.LoadLevel('Welcome');
+}
+
 function loadStory() {
-	Application.LoadLevel('Story');
+	SceneManager.LoadScene("Story");
+	//Application.LoadLevel('Story');
 }

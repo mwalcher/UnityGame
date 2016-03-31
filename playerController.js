@@ -9,6 +9,7 @@ private var flyHeight : float = 3;
 private var gravity : float;
 public static var start : boolean;
 public static var dead : boolean;
+public static var done : boolean;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
@@ -23,6 +24,7 @@ function Start() {
     gravity = 0;
     start = false;
     dead = false;
+    done = false;
     successFlashMessage.SetActive(false);
 }
 
@@ -36,6 +38,10 @@ function setDead(value : boolean) {
 function FixedUpdate(){
 	// Locked Z Position
 	transform.position.z = 0;
+
+	if(done){
+		GetComponent.<Rigidbody>().velocity.y = 0;
+	}
 
 	// Constant Horzontal Movement
 	GetComponent.<Rigidbody>().velocity.x = speed;
@@ -115,7 +121,9 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "ring"){
 		Destroy(other.gameObject);
 		GameState.newRing(GameState.getCurLevel());
+		done = true;
 		speed = 0;
+		gravity = 0;
 		successFlashMessage.SetActive(true);
 		yield WaitForSeconds(2);
 
