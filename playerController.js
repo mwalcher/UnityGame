@@ -150,6 +150,18 @@ function OnTriggerEnter(other:Collider){
 		}
 	}
 
+	//Water Collider
+	if(other.tag == "water"){
+		if(!playerStatus.isInvincible()){
+			playerStatus.takeDamage(10);
+			GetComponent.<Rigidbody>().velocity.y = flyHeight;
+			//Debug.Log("Player took Damage");
+		}else if(playerStatus.shieldOn()){
+			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
+			playerStatus.shieldBreak();
+		}
+	}
+
 	//Flying Enemies
 	if(other.tag == "flyEnemy"){
 		if(!playerStatus.isInvincible()){
