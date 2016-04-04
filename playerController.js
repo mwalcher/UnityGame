@@ -77,6 +77,8 @@ function OnTriggerEnter(other:Collider){
 	//Health Pickup
 	if(other.tag == "health"){
 		playerStatus.fullHealth();
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
 		Destroy(other.gameObject);
 		//Debug.Log("health was picked up");
 	}
@@ -84,13 +86,18 @@ function OnTriggerEnter(other:Collider){
 	//Gems Pickup
 	if(other.tag == "gems"){
 		playerStatus.pickUpGem();
-		Destroy(other.gameObject);
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
+		Destroy(other.gameObject, 1);
 		//Debug.Log("Gem was collected, current gems = " + gems);
 	}
 
 	//Sheild Pickup
 	if(other.tag == "shield"){
 		playerStatus.addToInventory("shield");
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
+		yield WaitForSeconds (5);
 		Destroy(other.gameObject);
 		//Debug.Log("shield was picked up");
 	}
@@ -98,6 +105,11 @@ function OnTriggerEnter(other:Collider){
 	//Bomb Pickup
 	if(other.tag == "bomb"){
 		playerStatus.addToInventory("bomb");
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
+		yield WaitForSeconds (5);
+		//other.GetComponent.<AudioSource>().Play();
+		//other.GetComponent.<Renderer>().enabled = false;
 		Destroy(other.gameObject);
 		//Debug.Log("Bomb was picked up");
 	}
@@ -105,6 +117,8 @@ function OnTriggerEnter(other:Collider){
 	//Potion Pickup
 	if(other.tag == "potion"){
 		playerStatus.addToInventory("potion");
+		other.GetComponent.<AudioSource>().Play(2);
+		other.GetComponent.<Renderer>().enabled = false;
 		Destroy(other.gameObject);
 		//Debug.Log("Potion was picked up");
 		//GetComponent.<Renderer>().material.color.a = 0.5;
@@ -113,6 +127,10 @@ function OnTriggerEnter(other:Collider){
 	//Hourglass Pickup
 	if(other.tag == "hourglass"){
 		playerStatus.addToInventory("hourglass");
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
+		yield WaitForSeconds (5);
+		//GameObject.FindGameObjectWithTag("hourglass").GetComponent.<AudioSource>().Play;
 		Destroy(other.gameObject);
 		//Debug.Log("Hourglass has been picked up");
 	}
@@ -120,6 +138,9 @@ function OnTriggerEnter(other:Collider){
 	//Ring Pickup
 	if(other.tag == "ring"){
 		Destroy(other.gameObject);
+		other.GetComponent.<AudioSource>().Play();
+		other.GetComponent.<Renderer>().enabled = false;
+		//GameObject.FindGameObjectWithTag("ring").GetComponent.<AudioSource>().Play;
 		GameState.newRing(GameState.getCurLevel());
 		done = true;
 		speed = 0;
