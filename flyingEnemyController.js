@@ -62,6 +62,10 @@ function returnSpeed(){
 	}
 }
 
+function takeDamage(){
+	anim.Play("TakeDamage", -1, 0.0f);
+}
+
 function Die(){
 	speed = 0;
 	anim.Play("Die", -1, 0.0f);

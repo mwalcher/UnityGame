@@ -117,7 +117,7 @@ function OnTriggerEnter(other:Collider){
 	//Potion Pickup
 	if(other.tag == "potion"){
 		playerStatus.addToInventory("potion");
-		other.GetComponent.<AudioSource>().Play(2);
+		other.GetComponent.<AudioSource>().Play();
 		other.GetComponent.<Renderer>().enabled = false;
 		Destroy(other.gameObject);
 		//Debug.Log("Potion was picked up");
@@ -187,11 +187,13 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "flyEnemy"){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(20);
-			Destroy(other.gameObject);
+			other.enabled = false;
+			other.gameObject.GetComponentInParent(flyingEnemyController).takeDamage();
 			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
-			Destroy(other.gameObject);
+			other.enabled = false;
+			other.gameObject.GetComponentInParent(flyingEnemyController).takeDamage();
 			playerStatus.shieldBreak();
 		}
 	}
@@ -200,16 +202,18 @@ function OnTriggerEnter(other:Collider){
 	if(other.tag == "grdEnemy"){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(30);
-			var childs : int = other.transform.parent.childCount;
+			//var childs : int = other.transform.parent.childCount;
 			// Debug.Log(other.transform.parent.childCount);
-			for (var i = childs-1; i>=0; i--) {
-				Destroy(other.transform.parent.GetChild(i).gameObject);
-			}
-			Destroy(other.gameObject);
+			//for (var i = childs-1; i>=0; i--) {
+				//Destroy(other.transform.parent.GetChild(i).gameObject);
+			//}
+			other.enabled = false;
+			other.gameObject.GetComponentInParent(groundEnemyController).takeDamage();
 			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
-			Destroy(other.gameObject);
+			other.enabled = false;
+			other.gameObject.GetComponentInParent(groundEnemyController).takeDamage();
 			playerStatus.shieldBreak();
 		}
 	}

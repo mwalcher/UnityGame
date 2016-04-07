@@ -62,6 +62,10 @@ function Idle(){
 	anim.Play("Idle", -1, 0.0f);
 }
 
+function takeDamage(){
+	anim.Play("TakeDamage", -1, 0.0f);
+}
+
 function Die(){
 	anim.Play("Die", -1, 0.0f);
 	yield WaitForSeconds(1);
