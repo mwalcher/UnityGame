@@ -77,10 +77,10 @@ private var grdScript : groundEnemyController;
 
 private var playerControllerScript : playerController;
 
-//Sound Fx
-public var sheild2 : AudioSource;
-public var sheild3 : AudioSource;
-public var Explosion : AudioSource;
+//Sound Effects
+public var sheildForm : AudioSource;
+public var sheildBurst : AudioSource;
+public var explosion : AudioSource;
 public var potionAir : AudioSource;
 public var hourglassPul : AudioSource;
 public var collision : AudioSource;
@@ -129,16 +129,6 @@ function Start () {
 	setGems();
 
     powerUpContainer.color = emptyPowerUp;
-
-    //Sound Components For Starting (this is where the error is, but I will fix it this week)
-    var soundfx = GetComponents(AudioSource);
-
-    sheild2 = soundfx[1]; // sound 1 of shield bubble on
-    sheild3 = soundfx[2]; // sound 2 shield bubble off
-    Explosion = soundfx[0];
-    potionAir = soundfx[4];
-    hourglassPul = soundfx[5];
-    collision = soundfx[6];
 }
 
 function Update () {
@@ -349,16 +339,14 @@ private function shieldProtect(){
 		player.transform.localPosition = new Vector3(0,1,0);
 		invincible = true;
 		shieldActive = true;
-		sheild2.GetComponent(playerController);
-		sheild2.Play();
+		sheildForm.Play();
 	}
 }
 
 public function shieldBreak(){
 	shieldActive = false;
 	invincible = false;
-	sheild3.GetComponent(playerController);
-	sheild3.Play();
+	sheildBurst.Play();
 }
 
 private function bombEnemies(){
@@ -374,9 +362,7 @@ private function bombEnemies(){
 	
 	directionalLight.intensity = defaultIntensity;
 
-	Explosion.GetComponent(playerController);
-	Explosion.Play();
-	//Debug.Log(Explosion);
+	explosion.Play();
 
 	//Debug.Log(directionalLight.intensity);	
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
@@ -397,20 +383,18 @@ private function bombEnemies(){
 }
 
 private function hourglassActive(){
-	//Debug.Log("Hourglass Active");
 	focused = true;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
 		if(flyEnemy.GetComponent(flyingEnemyController).distance >=-10 && flyEnemy.GetComponent(flyingEnemyController).distance <=30) {
         	flyEnemy.GetComponent(flyingEnemyController).slowDown();
         }
     }
-    hourglassPul.GetComponent(playerController);
     hourglassPul.Play();
 	Invoke("hourglassEnd", 10);
 }
 
 public function hourglassEnd(){
-	//Debug.Log("No More Hourglass");
+	hourglassPul.Stop();
 	focused = false;
 	for(var flyEnemy : GameObject in GameObject.FindGameObjectsWithTag("flyEnemyCont")){
         flyEnemy.GetComponent(flyingEnemyController).returnSpeed();
@@ -418,20 +402,18 @@ public function hourglassEnd(){
 }
 
 private function potionAlpha(){
-	//Debug.Log("Potion Alpha");
 	invincible = true;
 	focused = true;
 	var diffuseShader : Shader;
 	diffuseShader = Shader.Find("Unlit/Transparent");
 	playerMeshRenderer.material.shader = diffuseShader;
 	playerMeshRenderer.material.mainTexture = whiteTexture;
-	Invoke("potionEnd", 10);
-	potionAir.GetComponent(playerController);
 	potionAir.Play();
+	Invoke("potionEnd", 10);
 }
 
 public function potionEnd(){
-	//Debug.Log("No More Potion");
+	potionAir.Play();
 	invincible = false;
 	focused = false;
 	var diffuseShader : Shader;
@@ -450,6 +432,4 @@ public function isFocused(){
 
 public function shieldOn(){
 	return shieldActive;
-	//sheild2.GetComponent(playerController);
-	//sheild2.Play();
 }

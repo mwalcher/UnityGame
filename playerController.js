@@ -10,6 +10,7 @@ private var gravity : float;
 public static var start : boolean;
 public static var dead : boolean;
 public static var done : boolean;
+public var pickupSound : AudioSource;
 
 // Disable Gravity
 GetComponent.<Rigidbody>().useGravity = false;
@@ -77,70 +78,49 @@ function OnTriggerEnter(other:Collider){
 	//Health Pickup
 	if(other.tag == "health"){
 		playerStatus.fullHealth();
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
+		pickupSound.Play();
 		Destroy(other.gameObject);
-		//Debug.Log("health was picked up");
 	}
 
 	//Gems Pickup
 	if(other.tag == "gems"){
 		playerStatus.pickUpGem();
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
-		Destroy(other.gameObject, 1);
-		//Debug.Log("Gem was collected, current gems = " + gems);
+		pickupSound.Play();
+		Destroy(other.gameObject);
 	}
 
 	//Sheild Pickup
 	if(other.tag == "shield"){
 		playerStatus.addToInventory("shield");
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
-		yield WaitForSeconds (5);
+		pickupSound.Play();
 		Destroy(other.gameObject);
-		//Debug.Log("shield was picked up");
 	}
 
 	//Bomb Pickup
 	if(other.tag == "bomb"){
 		playerStatus.addToInventory("bomb");
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
-		yield WaitForSeconds (5);
-		//other.GetComponent.<AudioSource>().Play();
-		//other.GetComponent.<Renderer>().enabled = false;
+		pickupSound.Play();
 		Destroy(other.gameObject);
-		//Debug.Log("Bomb was picked up");
 	}
 
 	//Potion Pickup
 	if(other.tag == "potion"){
 		playerStatus.addToInventory("potion");
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
+		pickupSound.Play();
 		Destroy(other.gameObject);
-		//Debug.Log("Potion was picked up");
-		//GetComponent.<Renderer>().material.color.a = 0.5;
 	}
 
 	//Hourglass Pickup
 	if(other.tag == "hourglass"){
 		playerStatus.addToInventory("hourglass");
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
-		yield WaitForSeconds (5);
-		//GameObject.FindGameObjectWithTag("hourglass").GetComponent.<AudioSource>().Play;
+		pickupSound.Play();
 		Destroy(other.gameObject);
-		//Debug.Log("Hourglass has been picked up");
 	}
 
 	//Ring Pickup
 	if(other.tag == "ring"){
 		Destroy(other.gameObject);
-		other.GetComponent.<AudioSource>().Play();
-		other.GetComponent.<Renderer>().enabled = false;
-		//GameObject.FindGameObjectWithTag("ring").GetComponent.<AudioSource>().Play;
+		pickupSound.Play();
 		GameState.newRing(GameState.getCurLevel());
 		done = true;
 		speed = 0;
@@ -157,14 +137,12 @@ function OnTriggerEnter(other:Collider){
 			Application.LoadLevel("characterSelection");
 		}
 
-		//Debug.Log(GameState.getCurLevel() + " Ring collected");
 	}
 
 	//Terrain Collider
 	if(other.tag == "terrain"){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(10);
-			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
 			playerStatus.shieldBreak();
@@ -176,7 +154,6 @@ function OnTriggerEnter(other:Collider){
 		if(!playerStatus.isInvincible()){
 			playerStatus.takeDamage(10);
 			GetComponent.<Rigidbody>().velocity.y = flyHeight;
-			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
 			playerStatus.shieldBreak();
@@ -189,7 +166,6 @@ function OnTriggerEnter(other:Collider){
 			playerStatus.takeDamage(20);
 			other.enabled = false;
 			other.gameObject.GetComponentInParent(flyingEnemyController).takeDamage();
-			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
 			other.enabled = false;
@@ -209,7 +185,6 @@ function OnTriggerEnter(other:Collider){
 			//}
 			other.enabled = false;
 			other.gameObject.GetComponentInParent(groundEnemyController).takeDamage();
-			//Debug.Log("Player took Damage");
 		}else if(playerStatus.shieldOn()){
 			Destroy(GameObject.FindGameObjectWithTag("shieldBubble"));
 			other.enabled = false;
