@@ -31,3 +31,13 @@ function loadStory() {
 	SceneManager.LoadScene("Story");
 	//Application.LoadLevel('Story');
 }
+
+function levelSelection() {
+	SceneManager.LoadScene("characterSelection");
+	//Application.LoadLevel('Story');
+}
+
+function loadInstructions() {
+	SceneManager.LoadScene("Tutorial");
+	//Application.LoadLevel('Story');
+}
