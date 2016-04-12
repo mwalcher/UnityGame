@@ -7,6 +7,6 @@ function Start(){
 }
 
 function Update(){
-	transform.position.x = target.transform.position.x+3.5;
+	transform.position.x = target.transform.position.x+2.5;
 	transform.position.y = target.transform.position.y+.5;
 }

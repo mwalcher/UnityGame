@@ -31,6 +31,7 @@ function Start() {
 
 function setDead(value : boolean) {
 	dead = value;
+	done = true;
 	speed = 0;
 	gravity = 0;
 	//Debug.Log("DEAD IS " + dead);
